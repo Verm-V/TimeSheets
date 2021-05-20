@@ -4,7 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <UserSecretsId>ec0e57e6-5dd8-4294-84a6-39e4435b709f</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="NLog" Version="4.7.9" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
@@ -12,10 +20,14 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-    <UserSecretsId>c6faf8d8-43fa-4a0d-9896-df3e760aa9e1</UserSecretsId>
-  </PropertyGroup>
+  <ItemGroup>
+    <Content Update="nlog.config" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 
 </Project>
