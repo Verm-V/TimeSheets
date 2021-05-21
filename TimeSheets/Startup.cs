@@ -13,6 +13,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using TimeSheets.Data.Implementation;
+using TimeSheets.Data.Interfaces;
+using TimeSheets.Domain.Implementation;
+using TimeSheets.Domain.Interfaces;
 
 namespace TimeSheets
 {
@@ -28,6 +32,7 @@ namespace TimeSheets
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// Контроллеры
 			services.AddControllers();
 
 			// Swagger
@@ -56,6 +61,10 @@ namespace TimeSheets
 				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 				c.IncludeXmlComments(xmlPath);
 			});
+
+			// Репозитории
+			services.AddScoped<ISheetRepo, SheetRepo>();
+			services.AddScoped<ISheetManager, SheetManager>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
