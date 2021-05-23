@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,10 +14,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using TimeSheets.Data;
 using TimeSheets.Data.Implementation;
 using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Implementation;
 using TimeSheets.Domain.Interfaces;
+using TimeSheets.Infrastructure;
 
 namespace TimeSheets
 {
@@ -64,7 +67,14 @@ namespace TimeSheets
 
 			// Репозитории
 			services.AddScoped<ISheetRepo, SheetRepo>();
+			services.AddScoped<IContractRepo, ContractRepo>();
+
+			// Менеджеры работы с запросами
 			services.AddScoped<ISheetManager, SheetManager>();
+			services.AddScoped<IContractManager, ContractManager>();
+
+			// Контекст базы данных
+			services.ConfigureDbContext(Configuration);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

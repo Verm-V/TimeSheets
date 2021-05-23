@@ -9,22 +9,22 @@ namespace TimeSheets.Data.Implementation
 {
 	public class ServiceRepo : IServiceRepo
 	{
-		public void Add(Service item)
+		public async Task Add(Service item)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Service GetItem(Guid id)
+		public async Task<Service> GetItem(Guid id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<Service> GetItems()
+		public async Task<IEnumerable<Service>> GetItems()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Update()
+		public async Task Update(Service item)
 		{
 			throw new NotImplementedException();
 		}

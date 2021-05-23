@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TimeSheets.Data;
 using TimeSheets.Data.Interfaces;
 using TimeSheets.Models;
 
@@ -9,24 +11,34 @@ namespace TimeSheets.Data.Implementation
 {
 	public class SheetRepo : ISheetRepo
 	{
-		public void Add(Sheet item)
+		private readonly TimeSheetDbContext _context;
+
+		public SheetRepo(TimeSheetDbContext context)
 		{
-			GeneratedData.sheets.Add(item);
+			_context = context;
 		}
 
-		public Sheet GetItem(Guid id)
+		public async Task Add(Sheet item)
 		{
-			return GeneratedData.sheets.FirstOrDefault(x => x.Id == id);
+			await _context.Sheets.AddAsync(item);
+			await _context.SaveChangesAsync();
 		}
 
-		public IEnumerable<Sheet> GetItems()
+		public async Task<Sheet> GetItem(Guid id)
 		{
-			throw new NotImplementedException();
+			var result = await _context.Sheets.FindAsync(id);
+			return result;
 		}
 
-		public void Update()
+		public async Task<IEnumerable<Sheet>> GetItems()
 		{
-			throw new NotImplementedException();
+			return await _context.Sheets.ToListAsync();
+		}
+
+		public async Task Update(Sheet item)
+		{
+			_context.Sheets.Update(item);
+			await _context.SaveChangesAsync();
 		}
 	}
 }

@@ -9,22 +9,22 @@ namespace TimeSheets.Data.Implementation
 {
 	public class EmployeeRepo : IEmployeeRepo
 	{
-		public void Add(Employee item)
+		public async Task Add(Employee item)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Employee GetItem(Guid id)
+		public async Task<Employee> GetItem(Guid id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<Employee> GetItems()
+		public async Task<IEnumerable<Employee>> GetItems()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Update()
+		public async Task Update(Employee item)
 		{
 			throw new NotImplementedException();
 		}

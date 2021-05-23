@@ -10,7 +10,13 @@ namespace TimeSheets.Models
 	{
 		/// <summary>Id сотрудника</summary>
 		public Guid Id { get; set; }
+	
 		/// <summary>Id пользователя</summary>
 		public Guid UserId { get; set; }
+
+	
+		// Навигационные свойства
+		public ICollection<Sheet> Sheets { get; set; }
+
 	}
 }

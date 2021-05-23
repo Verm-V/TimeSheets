@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TimeSheets.Data
 {
@@ -10,17 +11,17 @@ namespace TimeSheets.Data
 		/// <summary>Извлечение элемента из хранилища</summary>
 		/// <param name="id">Id элемента</param>
 		/// <returns>Искомый элемент</returns>
-		T GetItem(Guid id);
+		Task<T> GetItem(Guid id);
 
 		/// <summary>Извлечение нескольких элементов из хранилища</summary>
 		/// <returns>Перечисление содержащее искомые элементы</returns>
-		IEnumerable<T> GetItems();
+		Task<IEnumerable<T>> GetItems();
 
 		/// <summary>Добавление элемента в хранилище</summary>
 		/// <param name="item">Модель элемента</param>
-		void Add(T item);
+		Task Add(T item);
 
 		/// <summary>Обновление элемента в хранилище</summary>
-		void Update();
+		Task Update(T item);
 	}
 }

@@ -10,6 +10,7 @@ namespace TimeSheets.Models
 	{
 		/// <summary>Id пользователя</summary>
 		public Guid Id { get; set; }
+	
 		/// <summary>Имя пользователя</summary>
 		public string Username { get; set; }
 	}
