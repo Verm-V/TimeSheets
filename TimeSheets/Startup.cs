@@ -42,13 +42,15 @@ namespace TimeSheets
 			services.ConfigureSwagger(Configuration);
 
 			// Репозитории
-			services.AddScoped<ISheetRepo, SheetRepo>();
 			services.AddScoped<IContractRepo, ContractRepo>();
+			services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+			services.AddScoped<ISheetRepo, SheetRepo>();
 			services.AddScoped<IUserRepo, UserRepo>();
 
 			// Менеджеры работы с запросами
-			services.AddScoped<ISheetManager, SheetManager>();
 			services.AddScoped<IContractManager, ContractManager>();
+			services.AddScoped<IEmployeeManager, EmployeeManager>();
+			services.AddScoped<ISheetManager, SheetManager>();
 			services.AddScoped<IUserManager, UserManager>();
 
 			// Контекст базы данных

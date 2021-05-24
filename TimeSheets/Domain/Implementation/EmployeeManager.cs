@@ -9,51 +9,51 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Domain.Implementation
 {
-	public class UserManager : IUserManager
+	public class EmployeeManager : IEmployeeManager
 	{
-		private readonly IUserRepo _repo;
+		private readonly IEmployeeRepo _repo;
 
-		public UserManager(IUserRepo repo)
+		public EmployeeManager(IEmployeeRepo repo)
 		{
 			_repo = repo;
 		}
 
-		public async Task<User> GetItem(Guid id)
+		public async Task<Employee> GetItem(Guid id)
 		{
 			return await _repo.GetItem(id);
 		}
 
-		public async Task<IEnumerable<User>> GetItems()
+		public async Task<IEnumerable<Employee>> GetItems()
 		{
 			return await _repo.GetItems();
 		}
 
-		public async Task<Guid> Create(UserRequest request)
+		public async Task<Guid> Create(EmployeeRequest request)
 		{
-			var User = new User()
+			var Employee = new Employee()
 			{
 				Id = Guid.NewGuid(),
-				Username = request.Username,
+				UserId = request.UserId,
 				IsDeleted = false,
 			};
 
-			await _repo.Add(User);
+			await _repo.Add(Employee);
 
-			return User.Id;
+			return Employee.Id;
 		}
 
-		public async Task Update(Guid id, UserRequest request)
+		public async Task Update(Guid id, EmployeeRequest request)
 		{
 			var item = await _repo.GetItem(id);
-			if(item!=null)
+			if (item != null)
 			{
-				item.Username = request.Username;
+				item.UserId = request.UserId;
 
 				await _repo.Update(item);
 			}
 		}
 
-		public async Task<bool> CheckUserIsDeleted(Guid id)
+		public async Task<bool> CheckEmployeeIsDeleted(Guid id)
 		{
 			return await _repo.CheckItemIsDeleted(id);
 		}

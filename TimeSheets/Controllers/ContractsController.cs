@@ -60,7 +60,7 @@ namespace TimeSheets.Controllers
 
 		}
 
-		/// <summary>Удаляет контракт</summary>
+		/// <summary>Удаление контракта</summary>
 		/// <param name="id">Id удаляемого конракта</param>
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)

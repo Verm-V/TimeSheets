@@ -68,6 +68,15 @@ namespace TimeSheets.Controllers
 			return Ok();
 		}
 
-		
+		/// <summary>Удаление карточки</summary>
+		/// <param name="id">Id удаляемой карточки</param>
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> Delete([FromRoute] Guid id)
+		{
+			await _sheetManager.Delete(id);
+			return Ok();
+		}
+
+
 	}
 }

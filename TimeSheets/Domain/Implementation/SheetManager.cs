@@ -47,19 +47,23 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task Update(Guid id, SheetRequest request)
 		{
-			var sheet = new Sheet()
+			var item = await _repo.GetItem(id);
+			if(item != null)
 			{
-				Id = id,
-				Amount = request.Amount,
-				ContractId = request.ContractId,
-				Date = request.Date,
-				EmployeeId = request.EmployeeId,
-				ServiceId = request.ServiceId,
-				InvoiceId = request.InvoiceId,
-			};
+				item.Amount = request.Amount;
+				item.ContractId = request.ContractId;
+				item.Date = request.Date;
+				item.EmployeeId = request.EmployeeId;
+				item.ServiceId = request.ServiceId;
+				item.InvoiceId = request.InvoiceId;
 
-			await _repo.Update(sheet);
+				await _repo.Update(item);
+			}
+		}
 
+		public async Task Delete(Guid id)
+		{
+			await _repo.Delete(id);
 		}
 	}
 }

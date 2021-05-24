@@ -52,7 +52,7 @@ namespace TimeSheets.Infrastructure
 				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 				c.IncludeXmlComments(xmlPath);
-				c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.DisplayName}");
+				c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
 			});
 		}
 	}

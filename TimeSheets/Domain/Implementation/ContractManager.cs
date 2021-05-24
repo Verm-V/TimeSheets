@@ -46,18 +46,16 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task Update(Guid id, ContractRequest request)
 		{
-			var isDeleted = await CheckContractIsDeleted(id);
-			var contract = new Contract()
+			var item = await _repo.GetItem(id);
+			if(item!=null)
 			{
-				Id = id,
-				Title = request.Title,
-				DateStart = request.DateStart,
-				DateEnd = request.DateEnd,
-				Description = request.Description,
-				IsDeleted = isDeleted,
-			};
+				item.Title = request.Title;
+				item.DateStart = request.DateStart;
+				item.DateEnd = request.DateEnd;
+				item.Description = request.Description;
 
-			await _repo.Update(contract);
+				await _repo.Update(item);
+			}
 
 		}
 

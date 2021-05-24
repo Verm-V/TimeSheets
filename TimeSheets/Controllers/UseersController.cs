@@ -11,11 +11,11 @@ namespace TimeSheets.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class UserController : ControllerBase
+	public class UsersController : ControllerBase
 	{
 		private readonly IUserManager _manager;
 
-		public UserController(IUserManager manager)
+		public UsersController(IUserManager manager)
 		{
 			_manager = manager;
 		}
@@ -60,7 +60,7 @@ namespace TimeSheets.Controllers
 
 		}
 
-		/// <summary>Удаляет пользователя</summary>
+		/// <summary>Удаление пользователя</summary>
 		/// <param name="id">Id удаляемого пользователя</param>
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)

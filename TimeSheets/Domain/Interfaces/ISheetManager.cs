@@ -28,5 +28,9 @@ namespace TimeSheets.Domain.Interfaces
 		/// <param name="request">Запрос на изменение карточки</param>
 		/// <returns></returns>
 		Task Update(Guid id, SheetRequest request);
+
+		/// <summary>Удаляет карточку из репозитория</summary>
+		/// <param name="id">Id карточки</param>
+		Task Delete(Guid id);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,34 +10,52 @@ namespace TimeSheets.Data.Implementation
 {
 	public class EmployeeRepo : IEmployeeRepo
 	{
+		private readonly TimeSheetDbContext _context;
+
+		public EmployeeRepo(TimeSheetDbContext context)
+		{
+			_context = context;
+		}
+
 		public async Task Add(Employee item)
 		{
-			throw new NotImplementedException();
+			await _context.Employees.AddAsync(item);
+			await _context.SaveChangesAsync();
 		}
 
-		public Task<bool> CheckItemIsDeleted(Guid id)
+		public async Task<bool> CheckItemIsDeleted(Guid id)
 		{
-			throw new NotImplementedException();
-		}
-
-		public async Task Delete(Guid id)
-		{
-			throw new NotImplementedException();
+			var item = await _context.Employees.FindAsync(id);
+			return item.IsDeleted;
 		}
 
 		public async Task<Employee> GetItem(Guid id)
 		{
-			throw new NotImplementedException();
+			var result = await _context.Employees.FindAsync(id);
+			return result;
 		}
 
 		public async Task<IEnumerable<Employee>> GetItems()
 		{
-			throw new NotImplementedException();
+			return await _context.Employees.ToListAsync();
 		}
 
 		public async Task Update(Employee item)
 		{
-			throw new NotImplementedException();
+			_context.Employees.Update(item);
+			await _context.SaveChangesAsync();
 		}
+
+		public async Task Delete(Guid id)
+		{
+			var item = await _context.Employees.FindAsync(id);
+			if (item != null)
+			{
+				item.IsDeleted = true;
+				_context.Employees.Update(item);
+				await _context.SaveChangesAsync();
+			}
+		}
+
 	}
 }
