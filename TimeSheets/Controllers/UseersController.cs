@@ -39,9 +39,9 @@ namespace TimeSheets.Controllers
 			return Ok(result);
 		}
 
-		/// <summary>Создание нового контракта</summary>
-		/// <param name="request">Закпрос на создание контракта</param>
-		/// <returns>Id созданного контракта</returns>
+		/// <summary>Создание нового пользователя</summary>
+		/// <param name="request">Закпрос на создание пользователя</param>
+		/// <returns>Id созданного пользователя</returns>
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] UserRequest request)
 		{
@@ -49,9 +49,9 @@ namespace TimeSheets.Controllers
 			return Ok(id);
 		}
 
-		/// <summary>Изменение существующего контракта</summary>
-		/// <param name="id">Id изменяемого контракта</param>
-		/// <param name="request">Запрос на изменение контракта</param>
+		/// <summary>Изменение существующего пользователя</summary>
+		/// <param name="id">Id изменяемого пользователя</param>
+		/// <param name="request">Запрос на изменение пользователя</param>
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserRequest request)
 		{
@@ -60,8 +60,8 @@ namespace TimeSheets.Controllers
 
 		}
 
-		/// <summary>Удаляет контракт</summary>
-		/// <param name="id">Id удаляемого конракта</param>
+		/// <summary>Удаляет пользователя</summary>
+		/// <param name="id">Id удаляемого пользователя</param>
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{

@@ -44,10 +44,12 @@ namespace TimeSheets
 			// Репозитории
 			services.AddScoped<ISheetRepo, SheetRepo>();
 			services.AddScoped<IContractRepo, ContractRepo>();
+			services.AddScoped<IUserRepo, UserRepo>();
 
 			// Менеджеры работы с запросами
 			services.AddScoped<ISheetManager, SheetManager>();
 			services.AddScoped<IContractManager, ContractManager>();
+			services.AddScoped<IUserManager, UserManager>();
 
 			// Контекст базы данных
 			services.ConfigureDbContext(Configuration);
