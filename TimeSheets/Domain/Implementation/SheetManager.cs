@@ -22,6 +22,11 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItem(id);
 		}
 
+		public async Task<IEnumerable<Sheet>> GetItems()
+		{
+			return await _repo.GetItems();
+		}
+
 		public async Task<Guid> Create(SheetRequest request)
 		{
 			var sheet = new Sheet()
@@ -38,11 +43,6 @@ namespace TimeSheets.Domain.Implementation
 			await _repo.Add(sheet);
 
 			return sheet.Id;
-		}
-
-		public async Task<IEnumerable<Sheet>> GetItems()
-		{
-			return await _repo.GetItems();
 		}
 
 		public async Task Update(Guid id, SheetRequest request)

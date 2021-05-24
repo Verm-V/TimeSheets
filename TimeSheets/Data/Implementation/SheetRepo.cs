@@ -24,6 +24,16 @@ namespace TimeSheets.Data.Implementation
 			await _context.SaveChangesAsync();
 		}
 
+		public Task<bool> CheckItemIsDeleted(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task Delete(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<Sheet> GetItem(Guid id)
 		{
 			var result = await _context.Sheets.FindAsync(id);

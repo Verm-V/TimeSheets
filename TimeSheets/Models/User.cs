@@ -13,5 +13,8 @@ namespace TimeSheets.Models
 	
 		/// <summary>Имя пользователя</summary>
 		public string Username { get; set; }
+
+		/// <summary>Пометка о том, что пользователь удален</summary>
+		public bool IsDeleted { get; set; }
 	}
 }

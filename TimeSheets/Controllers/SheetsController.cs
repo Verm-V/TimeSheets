@@ -58,19 +58,14 @@ namespace TimeSheets.Controllers
 			return Ok(id);
 		}
 
+		/// <summary>Изменение существующей карточки учета времени</summary>
+		/// <param name="id">Id изменяемой карточки</param>
+		/// <param name="request">Запрос на изменение карточки</param>
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] SheetRequest request)
 		{
-			var isAllowedToCreate = await _contractManager.CheckContractIsActive(request.ContractId);
-
-			if (isAllowedToCreate != null && !(bool)isAllowedToCreate)
-			{
-				return BadRequest($"Contract {request.ContractId} is not active or not found.");
-			}
-
 			await _sheetManager.Update(id, request);
 			return Ok();
-
 		}
 
 		

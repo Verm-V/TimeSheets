@@ -22,6 +22,10 @@ namespace TimeSheets.Models
 		/// <summary>Сумма счета</summary>
 		public decimal Sum { get; set; }
 
+		/// <summary>Пометка о том, что счет удален</summary>
+		public bool IsDeleted { get; set; }
+
+
 		// Навигационные свойства
 		public Contract Contract { get; set; }
 		public ICollection<Sheet> Sheets { get; set; }

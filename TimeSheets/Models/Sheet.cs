@@ -29,7 +29,11 @@ namespace TimeSheets.Models
 		/// <summary>Количество часов затраченных на выполнение услуги</summary>
 		public int Amount { get; set; }
 
-		
+		/// <summary>Пометка о том, что карточка удалена</summary>
+		public bool IsDeleted { get; set; }
+
+
+
 		// Навигационные свойства
 		public Employee Employee { get; set; }
 		public Contract Contract { get; set; }

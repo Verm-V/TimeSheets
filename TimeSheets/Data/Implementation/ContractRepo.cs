@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +31,12 @@ namespace TimeSheets.Data.Implementation
 			return isActive;
 		}
 
+		public async Task<bool> CheckItemIsDeleted(Guid id)
+		{
+			var item = await _context.Contracts.FindAsync(id);
+			return item.IsDeleted;
+		}
+
 		public async Task<Contract> GetItem(Guid id)
 		{
 			var result = await _context.Contracts.FindAsync(id);
@@ -38,12 +45,25 @@ namespace TimeSheets.Data.Implementation
 
 		public async Task<IEnumerable<Contract>> GetItems()
 		{
-			throw new NotImplementedException();
+			return await _context.Contracts.ToListAsync();
 		}
 
 		public async Task Update(Contract item)
 		{
-			throw new NotImplementedException();
+			_context.Contracts.Update(item);
+			await _context.SaveChangesAsync();
 		}
+
+		public async Task Delete(Guid id)
+		{
+			var item = await _context.Contracts.FindAsync(id);
+			if (item != null)
+			{
+				item.IsDeleted = true;
+				_context.Contracts.Update(item);
+				await _context.SaveChangesAsync();
+			}
+		}
+
 	}
 }

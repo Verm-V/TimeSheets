@@ -22,6 +22,16 @@ namespace TimeSheets.Data
 		Task Add(T item);
 
 		/// <summary>Обновление элемента в хранилище</summary>
+		/// <param name="item">Модель элемента</param>
 		Task Update(T item);
+
+		/// <summary>Удаление элемента из хранилища</summary>
+		/// <param name="id">Id проверяемого элемента</param>
+		Task Delete(Guid id);
+
+		/// <summary>Проверяет помечен ли элемент как удаленный в хранилище</summary>
+		/// <param name="id">Id проверяемого элемента</param>
+		/// <returns>True - если элемент помечен как удаленный</returns>
+		Task<bool> CheckItemIsDeleted(Guid id);
 	}
 }

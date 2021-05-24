@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос на создание карточки учета затраченного времени</summary>
+	/// <summary>Запрос для карточки учета затраченного времени</summary>
 	public class SheetRequest
 	{
 		/// <summary>Дата за которую регистрируется работа</summary>

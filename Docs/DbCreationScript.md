@@ -169,4 +169,20 @@ VALUES ('20210524092243_SeconfMigration', '5.0.6');
 
 COMMIT;
 
+START TRANSACTION;
+
+ALTER TABLE users ADD "IsDeleted" boolean NOT NULL DEFAULT FALSE;
+
+ALTER TABLE sheets ADD "IsDeleted" boolean NOT NULL DEFAULT FALSE;
+
+ALTER TABLE services ADD "IsDeleted" boolean NOT NULL DEFAULT FALSE;
+
+ALTER TABLE invoices ADD "IsDeleted" boolean NOT NULL DEFAULT FALSE;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210524122302_ThirdMigration', '5.0.6');
+
+COMMIT;
+
+
 ```

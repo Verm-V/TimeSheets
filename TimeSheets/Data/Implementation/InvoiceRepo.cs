@@ -14,6 +14,16 @@ namespace TimeSheets.Data.Implementation
 			throw new NotImplementedException();
 		}
 
+		public Task<bool> CheckItemIsDeleted(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task Delete(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<Invoice> GetItem(Guid id)
 		{
 			throw new NotImplementedException();

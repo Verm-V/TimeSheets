@@ -14,6 +14,10 @@ namespace TimeSheets.Models
 		/// <summary>Наименование услуги</summary>
 		public string Name { get; set; }
 
+		/// <summary>Пометка о том, что услуга удалена</summary>
+		public bool IsDeleted { get; set; }
+
+
 
 		// Навигационные свойства
 		public ICollection<Sheet> Sheets { get; set; }
