@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TimeSheets.Data.Configurations;
 using TimeSheets.Models;
 
 namespace TimeSheets.Data
@@ -17,18 +18,17 @@ namespace TimeSheets.Data
 		{
 		}
 
+		/// <summary>Конфигурация базы данных</summary>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Client>().ToTable("Clients");
-			modelBuilder.Entity<Contract>().ToTable("Contracts");
-			modelBuilder.Entity<Employee>().ToTable("Employees");
-			modelBuilder.Entity<Service>().ToTable("Services");
-			modelBuilder.Entity<Sheet>().ToTable("Sheets");
-			modelBuilder.Entity<User>().ToTable("Users");
+			modelBuilder.ApplyConfiguration(new ClientConfiguration());
+			modelBuilder.ApplyConfiguration(new ContractConfiguration());
+			modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+			modelBuilder.ApplyConfiguration(new InvoiceConfiguration());
+			modelBuilder.ApplyConfiguration(new ServiceConfiguration());
+			modelBuilder.ApplyConfiguration(new SheetConfiguration());
+			modelBuilder.ApplyConfiguration(new UserConfiguration());
 
-			modelBuilder.Entity<Sheet>()
-				.HasOne(sheet => sheet.Contract)
-				.WithMany(contract => contract.Sheets);
 		}
 	}
 }

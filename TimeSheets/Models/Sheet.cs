@@ -23,6 +23,9 @@ namespace TimeSheets.Models
 		/// <summary>Id оказываемой услуги</summary>
 		public Guid ServiceId { get; set; }
 	
+		/// <summary>Id счета выставляемого клиенту</summary>
+		public Guid? InvoiceId { get; set; }
+		
 		/// <summary>Количество часов затраченных на выполнение услуги</summary>
 		public int Amount { get; set; }
 

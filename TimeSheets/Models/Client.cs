@@ -12,6 +12,10 @@ namespace TimeSheets.Models
 		public Guid Id { get; set; }
 	
 		/// <summary>Id пользователя</summary>
-		public Guid User { get; set; }
+		public Guid UserId { get; set; }
+
+		/// <summary>Пометка о том, что клиент удален</summary>
+		public bool IsDeleted { get; set; }
+
 	}
 }

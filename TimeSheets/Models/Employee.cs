@@ -14,7 +14,11 @@ namespace TimeSheets.Models
 		/// <summary>Id пользователя</summary>
 		public Guid UserId { get; set; }
 
-	
+		/// <summary>Пометка о том, что сотрудник удален</summary>
+		public bool IsDeleted { get; set; }
+
+
+
 		// Навигационные свойства
 		public ICollection<Sheet> Sheets { get; set; }
 

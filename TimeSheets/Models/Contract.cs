@@ -23,7 +23,11 @@ namespace TimeSheets.Models
 		/// <summary>Описание контракта</summary>
 		public string Description { get; set; }
 
-	
+		/// <summary>Пометка о том, что контракт удален</summary>
+		public bool IsDeleted { get; set; }
+
+
+
 		// Навигационные свойства
 		public ICollection<Sheet> Sheets { get; set; }
 

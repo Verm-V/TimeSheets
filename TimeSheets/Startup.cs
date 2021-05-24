@@ -39,31 +39,7 @@ namespace TimeSheets
 			services.AddControllers();
 
 			// Swagger
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo
-				{
-					Version = "v1",
-					Title = "API for Time Sheets service",
-					Description = "Additional information",
-					//TermsOfService = new Uri("https://example.com/"),
-					Contact = new OpenApiContact
-					{
-						Name = "Vasiliy Mykitenko",
-						Email = string.Empty,
-						Url = new Uri("http://verm-v.ru"),
-					},
-					License = new OpenApiLicense
-					{
-						Name = "License - СС0",
-						Url = new Uri("https://creativecommons.org/choose/zero/"),
-					}
-				});
-				// Указываем файл из которого брать комментарии для Swagger UI
-				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-				c.IncludeXmlComments(xmlPath);
-			});
+			services.ConfigureSwagger(Configuration);
 
 			// Репозитории
 			services.AddScoped<ISheetRepo, SheetRepo>();
