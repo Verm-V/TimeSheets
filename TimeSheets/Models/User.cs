@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,5 +17,10 @@ namespace TimeSheets.Models
 
 		/// <summary>Пометка о том, что пользователь удален</summary>
 		public bool IsDeleted { get; set; }
+
+		// Навигационные свойства
+		public Client Client { get; set; }
+		public Employee Employee { get; set; }
+
 	}
 }

@@ -9,6 +9,16 @@ namespace TimeSheets.Data.Configurations
 		public void Configure(EntityTypeBuilder<Client> builder)
 		{
 			builder.ToTable("clients");
+
+			builder.Property(x => x.Id)
+				.ValueGeneratedNever()
+				.HasColumnName("Id");
+
+			builder
+				.HasOne(x => x.User)
+				.WithOne(u => u.Client)
+				.HasForeignKey<Client>("UserId");
+
 		}
 	}
 }

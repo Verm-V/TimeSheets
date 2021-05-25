@@ -184,5 +184,19 @@ VALUES ('20210524122302_ThirdMigration', '5.0.6');
 
 COMMIT;
 
+START TRANSACTION;
+
+CREATE UNIQUE INDEX "IX_employees_UserId" ON employees ("UserId");
+
+CREATE UNIQUE INDEX "IX_clients_UserId" ON clients ("UserId");
+
+ALTER TABLE clients ADD CONSTRAINT "FK_clients_users_UserId" FOREIGN KEY ("UserId") REFERENCES users ("Id") ON DELETE CASCADE;
+
+ALTER TABLE employees ADD CONSTRAINT "FK_employees_users_UserId" FOREIGN KEY ("UserId") REFERENCES users ("Id") ON DELETE CASCADE;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210525090846_FourthMigration', '5.0.6');
+
+COMMIT;
 
 ```

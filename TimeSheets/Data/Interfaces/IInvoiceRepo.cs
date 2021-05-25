@@ -6,7 +6,7 @@ using TimeSheets.Models;
 
 namespace TimeSheets.Data.Interfaces
 {
-	interface IInvoiceRepo : IRepoBase<Invoice>
+	public interface IInvoiceRepo : IRepoBase<Invoice>
 	{
 	}
 }

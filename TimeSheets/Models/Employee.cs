@@ -20,6 +20,7 @@ namespace TimeSheets.Models
 
 
 		// Навигационные свойства
+		public User User { get; set; }
 		public ICollection<Sheet> Sheets { get; set; }
 
 	}

@@ -9,6 +9,15 @@ namespace TimeSheets.Data.Configurations
 		public void Configure(EntityTypeBuilder<Invoice> builder)
 		{
 			builder.ToTable("invoices");
+
+			builder.Property(x => x.Id)
+				.ValueGeneratedNever()
+				.HasColumnName("Id");
+
+			builder
+				.HasOne(invoice => invoice.Contract)
+				.WithMany(contract => contract.Invoices)
+				.HasForeignKey("ContractId");
 		}
 	}
 }

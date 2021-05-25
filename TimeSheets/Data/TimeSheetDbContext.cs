@@ -11,6 +11,7 @@ namespace TimeSheets.Data
 		public DbSet<Contract> Contracts { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 		public DbSet<Service> Services { get; set; }
+		public DbSet<Invoice> Invoices { get; set; }
 		public DbSet<Sheet> Sheets { get; set; }
 		public DbSet<User> Users { get; set; }
 

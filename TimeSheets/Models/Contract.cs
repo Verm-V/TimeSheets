@@ -30,6 +30,7 @@ namespace TimeSheets.Models
 
 		// Навигационные свойства
 		public ICollection<Sheet> Sheets { get; set; }
+		public ICollection<Invoice> Invoices { get; set; }
 
 	}
 }

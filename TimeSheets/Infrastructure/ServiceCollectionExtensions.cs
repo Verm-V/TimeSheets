@@ -68,6 +68,8 @@ namespace TimeSheets.Infrastructure
 			services.AddScoped<IClientRepo, ClientRepo>();
 			services.AddScoped<IContractRepo, ContractRepo>();
 			services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+			services.AddScoped<IInvoiceRepo, InvoiceRepo>();
+			services.AddScoped<IServiceRepo, ServiceRepo>();
 			services.AddScoped<ISheetRepo, SheetRepo>();
 			services.AddScoped<IUserRepo, UserRepo>();
 
@@ -75,6 +77,8 @@ namespace TimeSheets.Infrastructure
 			services.AddScoped<IClientManager, ClientManager>();
 			services.AddScoped<IContractManager, ContractManager>();
 			services.AddScoped<IEmployeeManager, EmployeeManager>();
+			services.AddScoped<IInvoiceManager, InvoiceManager>();
+			services.AddScoped<IServiceManager, ServiceManager>();
 			services.AddScoped<ISheetManager, SheetManager>();
 			services.AddScoped<IUserManager, UserManager>();
 		}
