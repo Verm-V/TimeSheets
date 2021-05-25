@@ -6,6 +6,10 @@ using System;
 using System.IO;
 using System.Reflection;
 using TimeSheets.Data;
+using TimeSheets.Data.Implementation;
+using TimeSheets.Data.Interfaces;
+using TimeSheets.Domain.Implementation;
+using TimeSheets.Domain.Interfaces;
 
 namespace TimeSheets.Infrastructure
 {
@@ -55,5 +59,25 @@ namespace TimeSheets.Infrastructure
 				c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
 			});
 		}
+
+		/// <summary>Обработчики данных (менеджеры и провайдеры)</summary>
+		public static void ConfigureDataHandlers(this IServiceCollection services,
+			IConfiguration configuration)
+		{
+			// Репозитории
+			services.AddScoped<IClientRepo, ClientRepo>();
+			services.AddScoped<IContractRepo, ContractRepo>();
+			services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+			services.AddScoped<ISheetRepo, SheetRepo>();
+			services.AddScoped<IUserRepo, UserRepo>();
+
+			// Менеджеры работы с запросами
+			services.AddScoped<IClientManager, ClientManager>();
+			services.AddScoped<IContractManager, ContractManager>();
+			services.AddScoped<IEmployeeManager, EmployeeManager>();
+			services.AddScoped<ISheetManager, SheetManager>();
+			services.AddScoped<IUserManager, UserManager>();
+		}
+
 	}
 }

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос для сотрудника</summary>
-	public class EmployeeRequest
+	/// <summary>Запрос для клиента</summary>
+	public class ClientRequest
 	{
 		/// <summary>Id пользователя</summary>
 		public Guid UserId { get; set; }
-
 	}
 }

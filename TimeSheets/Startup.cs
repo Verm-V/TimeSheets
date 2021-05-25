@@ -1,24 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using TimeSheets.Data;
-using TimeSheets.Data.Implementation;
-using TimeSheets.Data.Interfaces;
-using TimeSheets.Domain.Implementation;
-using TimeSheets.Domain.Interfaces;
 using TimeSheets.Infrastructure;
 
 namespace TimeSheets
@@ -41,17 +25,8 @@ namespace TimeSheets
 			// Swagger
 			services.ConfigureSwagger(Configuration);
 
-			// Репозитории
-			services.AddScoped<IContractRepo, ContractRepo>();
-			services.AddScoped<IEmployeeRepo, EmployeeRepo>();
-			services.AddScoped<ISheetRepo, SheetRepo>();
-			services.AddScoped<IUserRepo, UserRepo>();
-
-			// Менеджеры работы с запросами
-			services.AddScoped<IContractManager, ContractManager>();
-			services.AddScoped<IEmployeeManager, EmployeeManager>();
-			services.AddScoped<ISheetManager, SheetManager>();
-			services.AddScoped<IUserManager, UserManager>();
+			// Обработчики данных (менеджеры и репозитории)
+			services.ConfigureDataHandlers(Configuration);
 
 			// Контекст базы данных
 			services.ConfigureDbContext(Configuration);
