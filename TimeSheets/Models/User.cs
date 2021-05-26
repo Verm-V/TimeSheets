@@ -18,6 +18,14 @@ namespace TimeSheets.Models
 		/// <summary>Пометка о том, что пользователь удален</summary>
 		public bool IsDeleted { get; set; }
 
+		/// <summary>Хэш пароля</summary>
+		public byte[] PasswordHash { get; set; }
+
+		/// <summary>Роль пользователя</summary>
+		public string Role { get; set; }
+
+
+
 		// Навигационные свойства
 		public Client Client { get; set; }
 		public Employee Employee { get; set; }

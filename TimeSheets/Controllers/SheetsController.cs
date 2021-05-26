@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Requests;
+using TimeSheets.Infrastructure.Constants;
 
 namespace TimeSheets.Controllers
 {
@@ -25,8 +27,9 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации по карточке учета времени по ее Id</summary>
 		/// <param name="id">Id карточки учета времени</param>
 		/// <returns>Информация о карточке учата времени</returns>
+		[Authorize(Roles = "user, admin")]
 		[HttpGet("{id}")]
-		public async Task<IActionResult> Get([FromQuery] Guid id)
+		public async Task<IActionResult> Get([FromRoute] Guid id)
 		{
 			var result = await _sheetManager.GetItem(id);
 			return Ok(result);

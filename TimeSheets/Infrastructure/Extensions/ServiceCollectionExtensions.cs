@@ -10,6 +10,9 @@ using TimeSheets.Data.Implementation;
 using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Implementation;
 using TimeSheets.Domain.Interfaces;
+using TimeSheets.Models.Dto.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 namespace TimeSheets.Infrastructure
 {
@@ -52,15 +55,36 @@ namespace TimeSheets.Infrastructure
 						Url = new Uri("https://creativecommons.org/choose/zero/"),
 					}
 				});
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.Http,
+					Scheme = "bearer",
+					BearerFormat = "JWT"
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+				{
+					{
+						new OpenApiSecurityScheme()
+						{
+							Reference = new OpenApiReference()
+							{
+								Type = ReferenceType.SecurityScheme, 
+								Id = "Bearer"
+							}
+						},
+						Array.Empty<string>()
+					}
+				});
 				// Указываем файл из которого брать комментарии для Swagger UI
-				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-				c.IncludeXmlComments(xmlPath);
-				c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
+				//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+				//c.IncludeXmlComments(xmlPath);
+				//c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
 			});
 		}
 
-		/// <summary>Обработчики данных (менеджеры и провайдеры)</summary>
+		/// <summary>Обработчики данных (репозитории и менеджеры)</summary>
 		public static void ConfigureDataHandlers(this IServiceCollection services,
 			IConfiguration configuration)
 		{
@@ -81,6 +105,29 @@ namespace TimeSheets.Infrastructure
 			services.AddScoped<IServiceManager, ServiceManager>();
 			services.AddScoped<ISheetManager, SheetManager>();
 			services.AddScoped<IUserManager, UserManager>();
+		}
+
+		/// <summary>Аутнетификация пользователей</summary>
+		public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.Configure<JwtAccessOptions>(configuration.GetSection("Authentication:JwtAccessOptions"));
+
+			var jwtSettings = new JwtOptions();
+			configuration.Bind("Authentication:JwtAccessOptions", jwtSettings);
+
+			services.AddTransient<ILoginManager, LoginManager>();
+
+			services
+				.AddAuthentication(
+					x =>
+					{
+						x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+						x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+					})
+				.AddJwtBearer(options =>
+				{
+					options.TokenValidationParameters = jwtSettings.GetTokenValidationParameters();
+				});
 		}
 
 	}

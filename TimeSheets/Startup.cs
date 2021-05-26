@@ -30,6 +30,9 @@ namespace TimeSheets
 
 			// Контекст базы данных
 			services.ConfigureDbContext(Configuration);
+
+			// Аутентификация
+			services.ConfigureAuthentication(Configuration);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,10 +43,18 @@ namespace TimeSheets
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API сервиса учета рабочего времени");
+				c.RoutePrefix = string.Empty;
+			});
+
 			//app.UseHttpsRedirection();
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
@@ -51,16 +62,6 @@ namespace TimeSheets
 				endpoints.MapControllers();
 			});
 
-			// Включение middleware в пайплайн для обработки Swagger запросов.
-			app.UseSwagger();
-			// включение middleware для генерации swagger-ui
-			// указываем Swagger JSON эндпоинт (куда обращаться за сгенерированной спецификацией
-			// по которой будет построен UI).
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API сервиса учета рабочего времени");
-				c.RoutePrefix = string.Empty;
-			});
 		}
 	}
 }

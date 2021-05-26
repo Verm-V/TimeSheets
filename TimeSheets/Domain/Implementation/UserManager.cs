@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Interfaces;
@@ -23,6 +25,14 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItem(id);
 		}
 
+		public async Task<User> GetItem(LoginRequest request)
+		{
+			var passwordHash = GetPasswordHash(request.Password);
+			var user = await _repo.GetItem(request.Login, passwordHash);
+
+			return user;
+		}
+
 		public async Task<IEnumerable<User>> GetItems()
 		{
 			return await _repo.GetItems();
@@ -34,6 +44,8 @@ namespace TimeSheets.Domain.Implementation
 			{
 				Id = Guid.NewGuid(),
 				Username = request.Username,
+				PasswordHash = GetPasswordHash(request.Password),
+				Role = request.Role,
 				IsDeleted = false,
 			};
 
@@ -48,7 +60,8 @@ namespace TimeSheets.Domain.Implementation
 			if(item!=null)
 			{
 				item.Username = request.Username;
-
+				item.PasswordHash = GetPasswordHash(request.Password);
+				item.Role = request.Role;
 				await _repo.Update(item);
 			}
 		}
@@ -62,5 +75,17 @@ namespace TimeSheets.Domain.Implementation
 		{
 			await _repo.Delete(id);
 		}
+
+		/// <summary>Добывает хэш пароля</summary>
+		/// <param name="password">Хэшируемый пароль</param>
+		/// <returns>SHA1 хэш пароля</returns>
+		private static byte[] GetPasswordHash(string password)
+		{
+			using (var sha1 = new SHA1CryptoServiceProvider())
+			{
+				return sha1.ComputeHash(Encoding.Unicode.GetBytes(password));
+			}
+		}
+
 	}
 }

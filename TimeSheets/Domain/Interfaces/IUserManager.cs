@@ -9,5 +9,7 @@ namespace TimeSheets.Domain.Interfaces
 {
 	public interface IUserManager : IBaseManager<User, UserRequest>
 	{
+		/// <summary> Возвращает пользователя по логину и паролю </summary>
+		Task<User> GetItem(LoginRequest request);
 	}
 }
