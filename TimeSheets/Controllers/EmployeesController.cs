@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
+	/// <summary>Работа со служащими</summary>
+	[ApiExplorerSettings(GroupName = "v2")]
+	[Authorize(Roles = "admin")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class EmployeesController : ControllerBase

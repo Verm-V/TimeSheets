@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
+	/// <summary>Работа со счетами</summary>
+	[ApiExplorerSettings(GroupName = "v2")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class InvoicesController : ControllerBase
@@ -23,6 +26,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации о счете по его Id</summary>
 		/// <param name="id">Id счета</param>
 		/// <returns>Инорфмация о счете</returns>
+		[Authorize(Roles = "admin, client")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
@@ -32,6 +36,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких счетах</summary>
 		/// <returns>Коллекция содержащая информацию о счетах</returns>
+		[Authorize(Roles = "admin")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
@@ -42,6 +47,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Создание нового счета</summary>
 		/// <param name="request">Закпрос на создание счета</param>
 		/// <returns>Id созданного счета</returns>
+		[Authorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] InvoiceRequest request)
 		{
@@ -52,6 +58,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Изменение существующего счета</summary>
 		/// <param name="id">Id изменяемого счета</param>
 		/// <param name="request">Запрос на изменение счета</param>
+		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] InvoiceRequest request)
 		{
@@ -62,6 +69,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Удаление счета</summary>
 		/// <param name="id">Id удаляемого счета</param>
+		[Authorize(Roles = "admin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{

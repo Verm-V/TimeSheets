@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
+	/// <summary>Работа с пользователями</summary>
 	[Route("api/[controller]")]
 	[ApiController]
 	public class UsersController : ControllerBase
@@ -42,6 +44,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Создание нового пользователя</summary>
 		/// <param name="request">Закпрос на создание пользователя</param>
 		/// <returns>Id созданного пользователя</returns>
+		[Authorize(Roles = "admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] UserRequest request)
 		{
@@ -52,6 +55,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Изменение существующего пользователя</summary>
 		/// <param name="id">Id изменяемого пользователя</param>
 		/// <param name="request">Запрос на изменение пользователя</param>
+		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserRequest request)
 		{
@@ -62,6 +66,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Удаление пользователя</summary>
 		/// <param name="id">Id удаляемого пользователя</param>
+		[Authorize(Roles = "admin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{

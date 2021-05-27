@@ -12,7 +12,7 @@ using TimeSheets.Domain.Implementation;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using System.ComponentModel;
 
 namespace TimeSheets.Infrastructure
 {
@@ -40,7 +40,25 @@ namespace TimeSheets.Infrastructure
 				c.SwaggerDoc("v1", new OpenApiInfo
 				{
 					Version = "v1",
-					Title = "API for Time Sheets service",
+					Title = "API for Time Sheets service (short)",
+					Description = "Additional information",
+					//TermsOfService = new Uri("https://example.com/"),
+					Contact = new OpenApiContact
+					{
+						Name = "Vasiliy Mykitenko",
+						Email = string.Empty,
+						Url = new Uri("http://verm-v.ru"),
+					},
+					License = new OpenApiLicense
+					{
+						Name = "License - СС0",
+						Url = new Uri("https://creativecommons.org/choose/zero/"),
+					}
+				});
+				c.SwaggerDoc("v2", new OpenApiInfo
+				{
+					Version = "v2",
+					Title = "API for Time Sheets service (Full)",
 					Description = "Additional information",
 					//TermsOfService = new Uri("https://example.com/"),
 					Contact = new OpenApiContact
@@ -77,10 +95,10 @@ namespace TimeSheets.Infrastructure
 					}
 				});
 				// Указываем файл из которого брать комментарии для Swagger UI
-				//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-				//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-				//c.IncludeXmlComments(xmlPath);
-				//c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
+				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+				c.IncludeXmlComments(xmlPath, true);
+				c.OrderActionsBy(apiDesc => apiDesc.RelativePath.Replace("/", "|"));
 			});
 		}
 

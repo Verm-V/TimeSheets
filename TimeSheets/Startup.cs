@@ -46,7 +46,8 @@ namespace TimeSheets
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API сервиса учета рабочего времени");
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API сервиса учета рабочего времени - сокращенный");
+				c.SwaggerEndpoint("/swagger/v2/swagger.json", "API сервиса учета рабочего времени - полный");
 				c.RoutePrefix = string.Empty;
 			});
 

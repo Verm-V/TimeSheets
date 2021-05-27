@@ -9,6 +9,7 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
+	/// <summary>Аутентификация пользователей</summary>
 	[Route("api/[controller]")]
 	[ApiController]
 	public class LoginController : ControllerBase
