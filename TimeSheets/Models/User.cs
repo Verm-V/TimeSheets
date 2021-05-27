@@ -24,6 +24,9 @@ namespace TimeSheets.Models
 		/// <summary>Роль пользователя</summary>
 		public string Role { get; set; }
 
+		/// <summary>Refresh token</summary>
+		public string RefreshToken { get; set; }
+
 
 
 		// Навигационные свойства

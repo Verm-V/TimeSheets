@@ -129,6 +129,7 @@ namespace TimeSheets.Infrastructure
 		public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<JwtAccessOptions>(configuration.GetSection("Authentication:JwtAccessOptions"));
+			services.Configure<JwtRefreshOptions>(configuration.GetSection("Authentication:JwtRefreshOptions"));
 
 			var jwtSettings = new JwtOptions();
 			configuration.Bind("Authentication:JwtAccessOptions", jwtSettings);
