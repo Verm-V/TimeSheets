@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models;
@@ -11,6 +12,7 @@ using TimeSheets.Models.Dto.Responses;
 using TimeSheets.Infrastructure.Extensions;
 using TimeSheets.Data.Interfaces;
 using System;
+using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Domain.Implementation
 {
@@ -31,10 +33,51 @@ namespace TimeSheets.Domain.Implementation
 			_userRepo = userRepo;
 		}
 
-		/// <summary>Аутентификация пользователя</summary>
-		/// <param name="user">Пользователь</param>
-		/// <returns>Набор токенов доступа и обновления</returns>
 		public async Task<LoginResponse> Authenticate(User user)
+		{
+			// Генерируем пару токенов
+			var loginResponse = CreateTokensPair(user);
+
+			// Запись Refresh токена в базу к соответствующему пользователю
+			user.RefreshToken = loginResponse.RefreshToken;
+			await _userRepo.Update(user);
+
+			return loginResponse;
+		}
+
+		public async Task<LoginResponse> Refresh(RefreshRequest request)
+		{
+			// Извдекаем их токена дату до которой он действителен и Id пользователя
+			var securityHandler = new JwtSecurityTokenHandler();
+			var refreshTokenRaw = securityHandler.ReadJwtToken(request.RefreshToken);
+			var validTo = refreshTokenRaw.ValidTo;
+
+			var userId = Guid.Parse(refreshTokenRaw.Subject);
+
+			// Достаем из базы пользователя на которого ссылается токен
+			var user = await _userRepo.GetItem(userId);
+
+			// Проверка на то, что пользователь существует, у него есть такой токен и он не протух.
+			if(user == null || user.RefreshToken != request.RefreshToken || validTo < DateTime.Now)
+			{
+				throw new ArgumentException("Bad Refresh JWT-token");
+			}
+
+			// Генерируем пару токенов
+			var loginResponse = CreateTokensPair(user);
+
+			// Запись Refresh токена в базу к соответствующему пользователю
+			user.RefreshToken = loginResponse.RefreshToken;
+			await _userRepo.Update(user);
+
+			return loginResponse;
+
+		}
+
+		/// <summary>Создает пару JWT токенов для пользователя</summary>
+		/// <param name="user">Аутентифицируемый пользователь</param>
+		/// <returns>Пара Access/refresh JWT токенов</returns>
+		private LoginResponse CreateTokensPair(User user)
 		{
 			// Создание списка Claim'ов
 			var claims = new List<Claim>
@@ -53,12 +96,6 @@ namespace TimeSheets.Domain.Implementation
 			var accessToken = securityHandler.WriteToken(accessTokenRaw);
 			var refreshToken = securityHandler.WriteToken(refreshTokenRaw);
 
-			// Запись Refresh токена в базу к соответствующему пользователю
-			var userId = Guid.Parse(claims[0].Value);
-			var userInfo = await _userRepo.GetItem(userId);
-			userInfo.RefreshToken = refreshToken;
-			await _userRepo.Update(userInfo);
-
 			// Формирование ответа от сервера
 			var loginResponse = new LoginResponse()
 			{
@@ -69,5 +106,6 @@ namespace TimeSheets.Domain.Implementation
 
 			return loginResponse;
 		}
+
 	}
 }
