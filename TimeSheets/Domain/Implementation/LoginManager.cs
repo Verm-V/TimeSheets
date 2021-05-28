@@ -9,6 +9,8 @@ using TimeSheets.Models;
 using TimeSheets.Models.Dto.Auth;
 using TimeSheets.Models.Dto.Responses;
 using TimeSheets.Infrastructure.Extensions;
+using TimeSheets.Data.Interfaces;
+using System;
 
 namespace TimeSheets.Domain.Implementation
 {
@@ -17,14 +19,24 @@ namespace TimeSheets.Domain.Implementation
 		private readonly JwtAccessOptions _jwtAccessOptions;
 		private readonly JwtRefreshOptions _jwtRefreshOptions;
 
-		public LoginManager(IOptions<JwtAccessOptions> jwtAccessOptions, IOptions<JwtRefreshOptions> jwtRefreshOptions)
+		private readonly IUserRepo _userRepo;
+
+		public LoginManager(
+			IOptions<JwtAccessOptions> jwtAccessOptions,
+			IOptions<JwtRefreshOptions> jwtRefreshOptions,
+			IUserRepo userRepo)
 		{
 			_jwtAccessOptions = jwtAccessOptions.Value;
 			_jwtRefreshOptions = jwtRefreshOptions.Value;
+			_userRepo = userRepo;
 		}
 
+		/// <summary>Аутентификация пользователя</summary>
+		/// <param name="user">Пользователь</param>
+		/// <returns>Набор токенов доступа и обновления</returns>
 		public async Task<LoginResponse> Authenticate(User user)
 		{
+			// Создание списка Claim'ов
 			var claims = new List<Claim>
 			{
 				new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
@@ -32,6 +44,7 @@ namespace TimeSheets.Domain.Implementation
 				new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
 			};
 
+			// Генерация Access и Refresh токенов
 			var accessTokenRaw = _jwtAccessOptions.GenerateToken(claims);
 			var refreshTokenRaw = _jwtRefreshOptions.GenerateToken(claims);
 
@@ -40,6 +53,13 @@ namespace TimeSheets.Domain.Implementation
 			var accessToken = securityHandler.WriteToken(accessTokenRaw);
 			var refreshToken = securityHandler.WriteToken(refreshTokenRaw);
 
+			// Запись Refresh токена в базу к соответствующему пользователю
+			var userId = Guid.Parse(claims[0].Value);
+			var userInfo = await _userRepo.GetItem(userId);
+			userInfo.RefreshToken = refreshToken;
+			await _userRepo.Update(userInfo);
+
+			// Формирование ответа от сервера
 			var loginResponse = new LoginResponse()
 			{
 				AccessToken = accessToken,

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace TimeSheets.Controllers
 			_userManager = userManager;
 		}
 
+		[AllowAnonymous]
 		[HttpPost]
 		public async Task<IActionResult> Login([FromBody] LoginRequest request)
 		{
@@ -37,7 +39,6 @@ namespace TimeSheets.Controllers
 
 			return Ok(loginResponse);
 		}
-
 
 	}
 }
