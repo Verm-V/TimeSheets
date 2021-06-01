@@ -12,9 +12,7 @@ using TimeSheets.Infrastructure.Constants;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с карточками учета времени</summary>
-	[Route("api/[controller]")]
-	[ApiController]
-	public class SheetsController : ControllerBase
+	public class SheetsController : TimeSheetBaseController
 	{
 		private readonly ISheetManager _sheetManager;
 		private readonly IContractManager _contractManager;

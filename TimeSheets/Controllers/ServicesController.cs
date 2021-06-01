@@ -12,9 +12,7 @@ namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с услугами оказываемыми клиентам</summary>
 	[ApiExplorerSettings(GroupName = "v2")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ServicesController : ControllerBase
+	public class ServicesController : TimeSheetBaseController
 	{
 		private readonly IServiceManager _manager;
 

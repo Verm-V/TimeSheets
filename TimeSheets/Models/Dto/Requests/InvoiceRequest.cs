@@ -17,8 +17,5 @@ namespace TimeSheets.Models.Dto.Requests
 		/// <summary>Дата конца периода за который выставляется счет</summary>
 		public DateTime DateEnd { get; set; }
 
-		/// <summary>Сумма счета</summary>
-		public decimal Sum { get; set; }
-
 	}
 }

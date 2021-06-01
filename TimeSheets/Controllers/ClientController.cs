@@ -13,9 +13,7 @@ namespace TimeSheets.Controllers
 	/// <summary>Работа с клиентами</summary>
 	[ApiExplorerSettings(GroupName = "v2")]
 	[Authorize(Roles = "admin")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ClientsController : ControllerBase
+	public class ClientsController : TimeSheetBaseController
 	{
 		private readonly IClientManager _manager;
 

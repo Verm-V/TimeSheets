@@ -11,10 +11,8 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с контрактами</summary>
-	[ApiExplorerSettings(GroupName = "v2")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ContractsController : ControllerBase
+	//[ApiExplorerSettings(GroupName = "v2")]
+	public class ContractsController : TimeSheetBaseController
 	{
 		private readonly IContractManager _manager;
 
@@ -36,7 +34,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких контрактах</summary>
 		/// <returns>Коллекция содержащая информацию о контрактах</returns>
-		[Authorize(Roles = "admin, user, client")]
+		//[Authorize(Roles = "admin, user, client")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{

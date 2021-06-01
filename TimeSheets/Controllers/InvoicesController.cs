@@ -11,16 +11,16 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа со счетами</summary>
-	[ApiExplorerSettings(GroupName = "v2")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class InvoicesController : ControllerBase
+	//[ApiExplorerSettings(GroupName = "v2")]
+	public class InvoicesController : TimeSheetBaseController
 	{
-		private readonly IInvoiceManager _manager;
+		private readonly IInvoiceManager _invoiceManager;
+		private readonly IContractManager _contractManager;
 
-		public InvoicesController(IInvoiceManager manager)
+		public InvoicesController(IInvoiceManager invoiceManager, IContractManager contractManager)
 		{
-			_manager = manager;
+			_invoiceManager = invoiceManager;
+			_contractManager = contractManager;
 		}
 
 		/// <summary>Получение информации о счете по его Id</summary>
@@ -30,7 +30,7 @@ namespace TimeSheets.Controllers
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
-			var result = await _manager.GetItem(id);
+			var result = await _invoiceManager.GetItem(id);
 			return Ok(result);
 		}
 
@@ -40,7 +40,7 @@ namespace TimeSheets.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
-			var result = await _manager.GetItems();
+			var result = await _invoiceManager.GetItems();
 			return Ok(result);
 		}
 
@@ -51,7 +51,14 @@ namespace TimeSheets.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] InvoiceRequest request)
 		{
-			var id = await _manager.Create(request);
+			var isAllowedToCreate = await _contractManager.CheckContractIsActive(request.ContractId);
+
+			if (isAllowedToCreate != null && !(bool)isAllowedToCreate)
+			{
+				return BadRequest($"Contract {request.ContractId} is not active or not found.");
+			}
+
+			var id = await _invoiceManager.Create(request);
 			return Ok(id);
 		}
 
@@ -62,7 +69,7 @@ namespace TimeSheets.Controllers
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] InvoiceRequest request)
 		{
-			await _manager.Update(id, request);
+			await _invoiceManager.Update(id, request);
 			return Ok();
 
 		}
@@ -73,7 +80,7 @@ namespace TimeSheets.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{
-			await _manager.Delete(id);
+			await _invoiceManager.Delete(id);
 			return Ok();
 		}
 	}

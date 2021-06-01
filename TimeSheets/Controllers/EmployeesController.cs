@@ -13,9 +13,7 @@ namespace TimeSheets.Controllers
 	/// <summary>Работа со служащими</summary>
 	[ApiExplorerSettings(GroupName = "v2")]
 	[Authorize(Roles = "admin")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class EmployeesController : ControllerBase
+	public class EmployeesController : TimeSheetBaseController
 	{
 		private readonly IEmployeeManager _manager;
 

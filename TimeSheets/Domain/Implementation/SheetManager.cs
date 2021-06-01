@@ -37,7 +37,6 @@ namespace TimeSheets.Domain.Implementation
 				Date = request.Date,
 				EmployeeId = request.EmployeeId,
 				ServiceId = request.ServiceId,
-				InvoiceId = request.InvoiceId,
 			};
 
 			await _repo.Add(sheet);
@@ -55,7 +54,6 @@ namespace TimeSheets.Domain.Implementation
 				item.Date = request.Date;
 				item.EmployeeId = request.EmployeeId;
 				item.ServiceId = request.ServiceId;
-				item.InvoiceId = request.InvoiceId;
 
 				await _repo.Update(item);
 			}

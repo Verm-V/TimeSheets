@@ -11,9 +11,7 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с пользователями</summary>
-	[Route("api/[controller]")]
-	[ApiController]
-	public class UsersController : ControllerBase
+	public class UsersController : TimeSheetBaseController
 	{
 		private readonly IUserManager _manager;
 
@@ -25,6 +23,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации о пользователе по его Id</summary>
 		/// <param name="id">Id пользователя</param>
 		/// <returns>Инорфмация о пользователе</returns>
+		[Authorize(Roles = "admin")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
