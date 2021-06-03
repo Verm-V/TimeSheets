@@ -45,21 +45,10 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Закпрос на создание клиента</param>
 		/// <returns>Id созданного клиента</returns>
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] ClientRequest request)
+		public async Task<IActionResult> Create([FromBody] ClientCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
-		}
-
-		/// <summary>Изменение существующего клиента</summary>
-		/// <param name="id">Id изменяемого клиента</param>
-		/// <param name="request">Запрос на изменение клиента</param>
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ClientRequest request)
-		{
-			await _manager.Update(id, request);
-			return Ok();
-
 		}
 
 		/// <summary>Удаление клиента</summary>

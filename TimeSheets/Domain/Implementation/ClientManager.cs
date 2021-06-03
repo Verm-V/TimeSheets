@@ -28,7 +28,7 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItems();
 		}
 
-		public async Task<Guid> Create(ClientRequest request)
+		public async Task<Guid> Create(ClientCreateRequest request)
 		{
 			var Client = new Client()
 			{
@@ -40,17 +40,6 @@ namespace TimeSheets.Domain.Implementation
 			await _repo.Add(Client);
 
 			return Client.Id;
-		}
-
-		public async Task Update(Guid id, ClientRequest request)
-		{
-			var item = await _repo.GetItem(id);
-			if (item != null)
-			{
-				item.UserId = request.UserId;
-
-				await _repo.Update(item);
-			}
 		}
 
 		public async Task<bool> CheckClientIsDeleted(Guid id)

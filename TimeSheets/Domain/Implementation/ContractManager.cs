@@ -27,7 +27,7 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItems();
 		}
 
-		public async Task<Guid> Create(ContractRequest request)
+		public async Task<Guid> Create(ContractCreateRequest request)
 		{
 			var contract = new Contract()
 			{
@@ -44,14 +44,12 @@ namespace TimeSheets.Domain.Implementation
 			return contract.Id;
 		}
 
-		public async Task Update(Guid id, ContractRequest request)
+		public async Task Update(Guid id, ContractUpdateRequest request)
 		{
 			var item = await _repo.GetItem(id);
 			if(item!=null)
 			{
 				item.Title = request.Title;
-				item.DateStart = request.DateStart;
-				item.DateEnd = request.DateEnd;
 				item.Description = request.Description;
 
 				await _repo.Update(item);

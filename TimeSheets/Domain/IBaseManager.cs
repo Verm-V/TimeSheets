@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace TimeSheets.Domain
 {
 	/// <summary>Менеджер запросов к репозиториям</summary>
-	public interface IBaseManager<TModel, TRequest>
+	public interface IBaseManager<TModel, TСreateRequest>
 	{
 		/// <summary>Возвращает объект по его Id</summary>
 		/// <param name="id">Id объекта</param>
@@ -20,12 +20,7 @@ namespace TimeSheets.Domain
 		/// <summary>Создает новый объект в репозитории</summary>
 		/// <param name="request">Запрос на создание объекта</param>
 		/// <returns>Id созданного обхекта</returns>
-		Task<Guid> Create(TRequest request);
-
-		/// <summary>Изменяет существующий объект</summary>
-		/// <param name="id">Id изменямого объекта</param>
-		/// <param name="request">Запрос на изменение объекта</param>
-		Task Update(Guid id, TRequest request);
+		Task<Guid> Create(TСreateRequest request);
 
 		/// <summary>Удаляет объект из репозитория</summary>
 		/// <param name="id">Id удаляемого объекта</param>

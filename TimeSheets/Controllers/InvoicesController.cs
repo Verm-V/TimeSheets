@@ -49,7 +49,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданного счета</returns>
 		[Authorize(Roles = "admin")]
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] InvoiceRequest request)
+		public async Task<IActionResult> Create([FromBody] InvoiceCreateRequest request)
 		{
 			var isAllowedToCreate = await _contractManager.CheckContractIsActive(request.ContractId);
 
@@ -60,18 +60,6 @@ namespace TimeSheets.Controllers
 
 			var id = await _invoiceManager.Create(request);
 			return Ok(id);
-		}
-
-		/// <summary>Изменение существующего счета</summary>
-		/// <param name="id">Id изменяемого счета</param>
-		/// <param name="request">Запрос на изменение счета</param>
-		[Authorize(Roles = "admin")]
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] InvoiceRequest request)
-		{
-			await _invoiceManager.Update(id, request);
-			return Ok();
-
 		}
 
 		/// <summary>Удаление счета</summary>

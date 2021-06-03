@@ -49,7 +49,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданной карточки</returns>
 		[Authorize(Roles = "admin, user")]
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] SheetRequest request)
+		public async Task<IActionResult> Create([FromBody] SheetCreateRequest request)
 		{
 			var isAllowedToCreate = await _contractManager.CheckContractIsActive(request.ContractId);
 			
@@ -67,7 +67,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на изменение карточки</param>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] SheetRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] SheetUpdateRequest request)
 		{
 			await _sheetManager.Update(id, request);
 			return Ok();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace TimeSheets.Models.Dto.Requests
 {
 	/// <summary>Запрос для клиента</summary>
-	public class ClientRequest
+	public class ClientCreateRequest
 	{
 		/// <summary>Id пользователя</summary>
 		public Guid UserId { get; set; }

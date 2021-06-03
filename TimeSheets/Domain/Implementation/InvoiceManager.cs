@@ -33,7 +33,7 @@ namespace TimeSheets.Domain.Implementation
 			return await _invoiceRepo.GetItems();
 		}
 
-		public async Task<Guid> Create(InvoiceRequest request)
+		public async Task<Guid> Create(InvoiceCreateRequest request)
 		{
 			var invoice = new Invoice()
 			{
@@ -55,29 +55,6 @@ namespace TimeSheets.Domain.Implementation
 			await _invoiceRepo.Add(invoice);
 
 			return invoice.Id;
-		}
-
-		public async Task Update(Guid id, InvoiceRequest request)
-		{
-			var invoice = await _invoiceRepo.GetItem(id);
-			if (invoice != null)
-			{
-				invoice.ContractId = request.ContractId;
-				invoice.DateStart = request.DateStart;
-				invoice.DateEnd = request.DateEnd;
-
-				//Обновляем список карточек привязанных к счету и пересчитываем сумму
-				var sheets = await _sheetRepo.GetItemsForInvoice(
-					request.ContractId,
-					request.DateStart,
-					request.DateEnd);
-
-				invoice.Sheets.Clear();
-				invoice.Sheets.AddRange(sheets);
-				invoice.Sum = invoice.Sheets.Sum(x => x.Amount * payRate);
-
-				await _invoiceRepo.Update(invoice);
-			}
 		}
 
 		public async Task<bool> CheckInvoiceIsDeleted(Guid id)

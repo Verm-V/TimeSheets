@@ -7,7 +7,7 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Domain.Interfaces
 {
-	public interface IClientManager : IBaseManager<Client, ClientRequest>
+	public interface IClientManager : IBaseManager<Client, ClientCreateRequest>
 	{
 	}
 }

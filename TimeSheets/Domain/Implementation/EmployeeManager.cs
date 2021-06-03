@@ -28,7 +28,7 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItems();
 		}
 
-		public async Task<Guid> Create(EmployeeRequest request)
+		public async Task<Guid> Create(EmployeeCreateRequest request)
 		{
 			var Employee = new Employee()
 			{
@@ -40,17 +40,6 @@ namespace TimeSheets.Domain.Implementation
 			await _repo.Add(Employee);
 
 			return Employee.Id;
-		}
-
-		public async Task Update(Guid id, EmployeeRequest request)
-		{
-			var item = await _repo.GetItem(id);
-			if (item != null)
-			{
-				item.UserId = request.UserId;
-
-				await _repo.Update(item);
-			}
 		}
 
 		public async Task<bool> CheckEmployeeIsDeleted(Guid id)

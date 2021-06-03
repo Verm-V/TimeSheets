@@ -7,7 +7,7 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Domain.Interfaces
 {
-	public interface IInvoiceManager : IBaseManager<Invoice, InvoiceRequest>
+	public interface IInvoiceManager : IBaseManager<Invoice, InvoiceCreateRequest>
 	{
 	}
 }

@@ -8,7 +8,7 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Infrastructure.Validation
 {
 	/// <summary>Валидатор запросов по карточкам</summary>
-	public class SheetRequestValidator : AbstractValidator<SheetRequest>
+	public class SheetRequestValidator : AbstractValidator<SheetCreateRequest>
 	{
 		public SheetRequestValidator()
 		{

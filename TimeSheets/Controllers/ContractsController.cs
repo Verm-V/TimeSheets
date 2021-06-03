@@ -47,7 +47,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданного контракта</returns>
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> Create([FromBody] ContractRequest request)
+		public async Task<IActionResult> Create([FromBody] ContractCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
@@ -58,7 +58,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на изменение контракта</param>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractUpdateRequest request)
 		{
 			await _manager.Update(id, request);
 			return Ok();

@@ -7,8 +7,13 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Domain.Interfaces
 {
-	public interface IUserManager : IBaseManager<User, UserRequest>
+	public interface IUserManager : IBaseManager<User, UserCreateRequest>
 	{
+		/// <summary>Изменяет существующий объект</summary>
+		/// <param name="id">Id изменямого объекта</param>
+		/// <param name="request">Запрос на изменение объекта</param>
+		Task Update(Guid id, UserUpdateRequest request);
+
 		/// <summary> Возвращает пользователя по логину и паролю </summary>
 		Task<User> GetItem(LoginRequest request);
 	}

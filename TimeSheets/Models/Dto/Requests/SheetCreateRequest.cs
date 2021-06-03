@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос для карточки учета затраченного времени</summary>
-	public class SheetRequest
+	/// <summary>Запрос на создание карточки учета затраченного времени</summary>
+	public class SheetCreateRequest
 	{
 		/// <summary>Дата за которую регистрируется работа</summary>
 		public DateTime Date { get; set; }

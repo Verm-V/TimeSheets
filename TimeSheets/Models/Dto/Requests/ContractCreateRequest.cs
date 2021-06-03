@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос для контракта</summary>
-	public class ContractRequest
+	/// <summary>Запрос на создание контракта</summary>
+	public class ContractCreateRequest
 	{
 		/// <summary>Наименование контракта</summary>
 		public string Title { get; set; }

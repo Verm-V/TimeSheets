@@ -45,7 +45,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданного пользователя</returns>
 		[Authorize(Roles = "admin")]
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] UserRequest request)
+		public async Task<IActionResult> Create([FromBody] UserCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
@@ -56,7 +56,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на изменение пользователя</param>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserUpdateRequest request)
 		{
 			await _manager.Update(id, request);
 			return Ok();

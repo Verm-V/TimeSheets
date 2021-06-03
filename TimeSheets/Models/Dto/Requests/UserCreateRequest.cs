@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос для пользователя системы</summary>
-	public class UserRequest
+	/// <summary>Запрос на создание пользователя системы</summary>
+	public class UserCreateRequest
 	{
 		/// <summary>Имя пользователя</summary>
 		public string Username { get; set; }
@@ -16,8 +16,5 @@ namespace TimeSheets.Models.Dto.Requests
 
 		/// <summary>Роль пользователя</summary>
 		public string Role { get; set; }
-
-		/// <summary>Refresh token</summary>
-		public string RefreshToken { get; set; }
 	}
 }

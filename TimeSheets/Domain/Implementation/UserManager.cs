@@ -38,7 +38,7 @@ namespace TimeSheets.Domain.Implementation
 			return await _repo.GetItems();
 		}
 
-		public async Task<Guid> Create(UserRequest request)
+		public async Task<Guid> Create(UserCreateRequest request)
 		{
 			var User = new User()
 			{
@@ -54,7 +54,7 @@ namespace TimeSheets.Domain.Implementation
 			return User.Id;
 		}
 
-		public async Task Update(Guid id, UserRequest request)
+		public async Task Update(Guid id, UserUpdateRequest request)
 		{
 			var item = await _repo.GetItem(id);
 			if(item!=null)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
-	/// <summary>Запрос для предоставляемой услуге</summary>
+	/// <summary>Запрос на создание/изменение предоставляемой услуги</summary>
 	public class ServiceRequest
 	{
 		/// <summary>Наименование услуги</summary>

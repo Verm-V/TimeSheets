@@ -154,7 +154,7 @@ namespace TimeSheets.Infrastructure
 
 		public static void ConfigureValidtion(this IServiceCollection services)
 		{
-			services.AddTransient<IValidator<SheetRequest>, SheetRequestValidator>();
+			services.AddTransient<IValidator<SheetCreateRequest>, SheetRequestValidator>();
 		}
 
 	}
