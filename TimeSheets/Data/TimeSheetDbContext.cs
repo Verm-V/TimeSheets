@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TimeSheets.Data.Configurations;
-using TimeSheets.Models;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data
 {
@@ -11,8 +12,8 @@ namespace TimeSheets.Data
 		public DbSet<Contract> Contracts { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 		public DbSet<Service> Services { get; set; }
-		public DbSet<Invoice> Invoices { get; set; }
-		public DbSet<Sheet> Sheets { get; set; }
+		public DbSet<InvoiceAggregate> Invoices { get; set; }
+		public DbSet<SheetAggregate> Sheets { get; set; }
 		public DbSet<User> Users { get; set; }
 
 		public TimeSheetDbContext(DbContextOptions<TimeSheetDbContext> options) : base(options)

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TimeSheets.Domain.Aggregates;
 
-namespace TimeSheets.Models
+namespace TimeSheets.Models.Entities
 {
 	/// <summary>Информация о сотруднике</summary>
 	public class Employee
@@ -21,7 +22,7 @@ namespace TimeSheets.Models
 
 		// Навигационные свойства
 		public User User { get; set; }
-		public ICollection<Sheet> Sheets { get; set; }
+		public ICollection<SheetAggregate> Sheets { get; set; }
 
 	}
 }

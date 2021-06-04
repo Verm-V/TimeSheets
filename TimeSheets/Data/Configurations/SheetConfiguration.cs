@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TimeSheets.Models;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
-	public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
+	public class SheetConfiguration : IEntityTypeConfiguration<SheetAggregate>
 	{
-		public void Configure(EntityTypeBuilder<Sheet> builder)
+		public void Configure(EntityTypeBuilder<SheetAggregate> builder)
 		{
 			builder.ToTable("sheets");
 

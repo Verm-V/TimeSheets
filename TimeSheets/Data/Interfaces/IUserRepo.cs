@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TimeSheets.Models;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Interfaces
 {

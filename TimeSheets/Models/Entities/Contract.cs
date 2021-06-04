@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TimeSheets.Domain.Aggregates;
 
-namespace TimeSheets.Models
+namespace TimeSheets.Models.Entities
 {
 	/// <summary>Информация о контракте с клиентом</summary>
 	public class Contract
@@ -29,8 +30,8 @@ namespace TimeSheets.Models
 
 
 		// Навигационные свойства
-		public ICollection<Sheet> Sheets { get; set; }
-		public ICollection<Invoice> Invoices { get; set; }
+		public ICollection<SheetAggregate> Sheets { get; set; }
+		public ICollection<InvoiceAggregate> Invoices { get; set; }
 
 	}
 }

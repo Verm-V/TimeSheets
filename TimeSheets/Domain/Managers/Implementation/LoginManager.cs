@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 using TimeSheets.Domain.Interfaces;
-using TimeSheets.Models;
+using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Auth;
 using TimeSheets.Models.Dto.Responses;
 using TimeSheets.Infrastructure.Extensions;

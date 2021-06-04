@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TimeSheets.Models;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
-	public class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
+	public class InvoiceConfiguration : IEntityTypeConfiguration<InvoiceAggregate>
 	{
-		public void Configure(EntityTypeBuilder<Invoice> builder)
+		public void Configure(EntityTypeBuilder<InvoiceAggregate> builder)
 		{
 			builder.ToTable("invoices");
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TimeSheets.Models
+namespace TimeSheets.Models.Entities
 {
 	/// <summary>Информация о пользователе системы</summary>
 	public class User
