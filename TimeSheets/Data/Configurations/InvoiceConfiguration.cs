@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeSheets.Domain.Aggregates;
+using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
@@ -19,6 +21,14 @@ namespace TimeSheets.Data.Configurations
 				.HasOne(invoice => invoice.Contract)
 				.WithMany(contract => contract.Invoices)
 				.HasForeignKey("ContractId");
+
+			//Value Objects
+			var converter = new ValueConverter<Money, decimal>(
+				v => v.Amount,
+				v => Money.FromDecimal(v));
+
+			builder.Property(x => x.Sum)
+				.HasConversion(converter);
 		}
 	}
 }

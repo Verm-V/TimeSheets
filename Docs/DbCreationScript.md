@@ -230,4 +230,16 @@ VALUES ('20210604104153_7_Migration_Aggregates_Added', '5.0.6');
 
 COMMIT;
 
+START TRANSACTION;
+
+ALTER TABLE sheets ALTER COLUMN "Amount" DROP NOT NULL;
+
+ALTER TABLE invoices ALTER COLUMN "Sum" DROP NOT NULL;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210605102236_8_Migration_Added_ValueTypes', '5.0.6');
+
+COMMIT;
+
+
 ```

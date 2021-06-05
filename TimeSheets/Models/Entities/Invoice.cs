@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models;
@@ -22,7 +23,7 @@ namespace TimeSheets.Models.Entities
 		public DateTime DateEnd { get; protected set; }
 
 		/// <summary>Сумма счета</summary>
-		public decimal Sum { get; protected set; }
+		public Money Sum { get; protected set; }
 
 		/// <summary>Пометка о том, что счет удален</summary>
 		public bool IsDeleted { get; protected set; }

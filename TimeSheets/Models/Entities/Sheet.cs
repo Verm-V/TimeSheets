@@ -29,7 +29,7 @@ namespace TimeSheets.Models.Entities
 		public Guid? InvoiceId { get; protected set; }
 		
 		/// <summary>Количество часов затраченных на выполнение услуги</summary>
-		public int Amount { get; protected set; }
+		public SpentTime Amount { get; protected set; }
 
 		/// <summary>Пометка о том, что карточка удалена</summary>
 		public bool IsDeleted { get; protected set; }

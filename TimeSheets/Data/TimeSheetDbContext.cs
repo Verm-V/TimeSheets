@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TimeSheets.Data.Configurations;
 using TimeSheets.Domain.Aggregates;
+using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data
@@ -30,7 +31,6 @@ namespace TimeSheets.Data
 			modelBuilder.ApplyConfiguration(new ServiceConfiguration());
 			modelBuilder.ApplyConfiguration(new SheetConfiguration());
 			modelBuilder.ApplyConfiguration(new UserConfiguration());
-
 		}
 	}
 }

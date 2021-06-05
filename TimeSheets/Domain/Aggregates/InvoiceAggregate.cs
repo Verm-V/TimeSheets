@@ -42,8 +42,8 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Рассчет суммы счета</summary>
 		private void CalculateSum()
 		{
-			var amount = Sheets.Sum(x => x.Amount * _payRate);
-			Sum = Money.FromDecimal(amount).Amount;
+			var amount = Sheets.Sum(x => x.Amount.Amount * _payRate);
+			Sum = Money.FromDecimal(amount);
 		}
 
 		/// <summary>Помечает сущность как удаленную</summary>

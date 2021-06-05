@@ -21,7 +21,7 @@ namespace TimeSheets.Domain.Aggregates
 			return new SheetAggregate()
 			{
 				Id = Guid.NewGuid(),
-				Amount = SpentTime.FromInt(request.Amount).Amount,
+				Amount = SpentTime.FromInt(request.Amount),
 				ContractId = request.ContractId,
 				Date = request.Date,
 				EmployeeId = request.EmployeeId,
