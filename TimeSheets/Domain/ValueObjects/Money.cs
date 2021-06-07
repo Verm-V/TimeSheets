@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace TimeSheets.Domain.ValueObjects
 		public decimal Amount { get; }
 
 		// Запрет на создание пустого объекта через стандартный конструктор
+		[ExcludeFromCodeCoverage]
 		private Money() { }
 
 		private Money(decimal amount)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Aggregates;
@@ -8,6 +9,7 @@ using TimeSheets.Domain.ValueObjects;
 namespace TimeSheets.Models.Entities
 {
 	/// <summary>Карточка учета затраченного времени сотрудником</summary>
+	[ExcludeFromCodeCoverage]
 	public class Sheet
 	{
 		/// <summary>Id карточки</summary>

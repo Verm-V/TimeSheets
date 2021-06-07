@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models;
@@ -8,6 +9,7 @@ using TimeSheets.Models;
 namespace TimeSheets.Models.Entities
 {
 	/// <summary>Счета выставляемые клиентам</summary>
+	[ExcludeFromCodeCoverage]
 	public class Invoice
 	{
 		/// <summary>Id счета</summary>
