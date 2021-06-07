@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Data;
@@ -10,6 +11,7 @@ using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class SheetRepo : ISheetRepo
 	{
 		private readonly TimeSheetDbContext _context;

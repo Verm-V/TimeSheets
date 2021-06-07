@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Aggregates;
@@ -7,6 +8,7 @@ using TimeSheets.Domain.Aggregates;
 namespace TimeSheets.Models.Entities
 {
 	/// <summary>Информация о сотруднике</summary>
+	[ExcludeFromCodeCoverage]
 	public class Employee
 	{
 		/// <summary>Id сотрудника</summary>

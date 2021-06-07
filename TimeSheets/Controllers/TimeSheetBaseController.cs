@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Infrastructure.Validation;
@@ -11,6 +12,7 @@ using TimeSheets.Infrastructure.Validation;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Базовый кастомный контроллер с подключенной валидацией</summary>
+	[ExcludeFromCodeCoverage]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class TimeSheetBaseController : Controller

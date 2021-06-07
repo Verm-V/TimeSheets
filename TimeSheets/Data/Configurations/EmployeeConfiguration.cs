@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
 	public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 	{
+		[ExcludeFromCodeCoverage]
 		public void Configure(EntityTypeBuilder<Employee> builder)
 		{
 			builder.ToTable("employees");

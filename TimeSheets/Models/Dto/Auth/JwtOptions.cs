@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace TimeSheets.Models.Dto.Auth
 {
 	/// <summary>Опции Jwt токена</summary>
+	[ExcludeFromCodeCoverage]
 	public class JwtOptions
 	{
 		/// <summary>Издатель токена</summary>

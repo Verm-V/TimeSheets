@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Data.Configurations;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
@@ -7,6 +8,7 @@ using TimeSheets.Models.Entities;
 namespace TimeSheets.Data
 {
 	/// <summary>Контекст базы данных</summary>
+	[ExcludeFromCodeCoverage]
 	public class TimeSheetDbContext : DbContext
 	{
 		public DbSet<Client> Clients { get; set; }

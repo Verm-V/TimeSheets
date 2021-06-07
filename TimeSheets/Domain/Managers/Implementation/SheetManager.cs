@@ -6,9 +6,11 @@ using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Domain.Aggregates;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class SheetManager : ISheetManager
 	{
 		private readonly ISheetRepo _repo;

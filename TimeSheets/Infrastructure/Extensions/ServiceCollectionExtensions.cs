@@ -16,10 +16,12 @@ using System.ComponentModel;
 using FluentValidation;
 using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Infrastructure.Validation;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Infrastructure
 {
 	/// <summary>Расширения для коллекций сервисов</summary>
+	[ExcludeFromCodeCoverage]
 	internal static class ServiceCollectionExtensions
 	{
 		/// <summary>Конфигурация контекста базы данных</summary>

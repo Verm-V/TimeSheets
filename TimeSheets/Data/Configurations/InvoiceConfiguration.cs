@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
+	[ExcludeFromCodeCoverage]
 	public class InvoiceConfiguration : IEntityTypeConfiguration<InvoiceAggregate>
 	{
 		public void Configure(EntityTypeBuilder<InvoiceAggregate> builder)

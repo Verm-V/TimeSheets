@@ -13,9 +13,11 @@ using TimeSheets.Infrastructure.Extensions;
 using TimeSheets.Data.Interfaces;
 using System;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class LoginManager : ILoginManager
 	{
 		private readonly JwtAccessOptions _jwtAccessOptions;
