@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Models.Entities
 {
@@ -12,28 +13,28 @@ namespace TimeSheets.Models.Entities
 	public class User
 	{
 		/// <summary>Id пользователя</summary>
-		public Guid Id { get; set; }
+		public Guid Id { get; protected set; }
 	
 		/// <summary>Имя пользователя</summary>
-		public string Username { get; set; }
+		public string Username { get; protected set; }
 
 		/// <summary>Пометка о том, что пользователь удален</summary>
-		public bool IsDeleted { get; set; }
+		public bool IsDeleted { get; protected set; }
 
 		/// <summary>Хэш пароля</summary>
-		public byte[] PasswordHash { get; set; }
+		public byte[] PasswordHash { get; protected set; }
 
 		/// <summary>Роль пользователя</summary>
-		public string Role { get; set; }
+		public string Role { get; protected set; }
 
 		/// <summary>Refresh token</summary>
-		public string RefreshToken { get; set; }
+		public string RefreshToken { get; protected set; }
 
 
 
 		// Навигационные свойства
-		public Client Client { get; set; }
-		public Employee Employee { get; set; }
+		public ClientAggregate Client { get; set; }
+		public EmployeeAggregate Employee { get; set; }
 
 	}
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Models.Entities
 {
@@ -12,17 +13,17 @@ namespace TimeSheets.Models.Entities
 	public class Client
 	{
 		/// <summary>Id владельца</summary>
-		public Guid Id { get; set; }
+		public Guid Id { get; protected set; }
 	
 		/// <summary>Id пользователя</summary>
-		public Guid UserId { get; set; }
+		public Guid UserId { get; protected set; }
 
 		/// <summary>Пометка о том, что клиент удален</summary>
-		public bool IsDeleted { get; set; }
+		public bool IsDeleted { get; protected set; }
 
 
 		// Навигационные свойства
-		public User User { get; set; }
+		public UserAggregate User { get; set; }
 
 
 	}

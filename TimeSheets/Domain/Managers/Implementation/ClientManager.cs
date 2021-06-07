@@ -7,6 +7,7 @@ using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
 using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Implementation
 {
@@ -20,28 +21,23 @@ namespace TimeSheets.Domain.Implementation
 			_repo = repo;
 		}
 
-		public async Task<Client> GetItem(Guid id)
+		public async Task<ClientAggregate> GetItem(Guid id)
 		{
 			return await _repo.GetItem(id);
 		}
 
-		public async Task<IEnumerable<Client>> GetItems()
+		public async Task<IEnumerable<ClientAggregate>> GetItems()
 		{
 			return await _repo.GetItems();
 		}
 
 		public async Task<Guid> Create(ClientCreateRequest request)
 		{
-			var Client = new Client()
-			{
-				Id = Guid.NewGuid(),
-				UserId = request.UserId,
-				IsDeleted = false,
-			};
+			var client = ClientAggregate.CreateFromClientRequest(request);
 
-			await _repo.Add(Client);
+			await _repo.Add(client);
 
-			return Client.Id;
+			return client.Id;
 		}
 
 		public async Task<bool> CheckClientIsDeleted(Guid id)

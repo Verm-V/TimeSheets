@@ -27,6 +27,7 @@ namespace TimeSheets.Domain.Aggregates
 				ContractId = request.ContractId,
 				DateStart = request.DateStart,
 				DateEnd = request.DateEnd,
+				IsDeleted = false,
 			};
 		}
 

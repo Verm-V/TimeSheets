@@ -25,7 +25,8 @@ namespace TimeSheets.Domain.Aggregates
 				ContractId = request.ContractId,
 				Date = request.Date,
 				EmployeeId = request.EmployeeId,
-				ServiceId = request.ServiceId
+				ServiceId = request.ServiceId,
+				IsDeleted = false,
 			};
 		}
 

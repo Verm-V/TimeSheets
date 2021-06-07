@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Interfaces
 {
-	public interface IUserManager : IBaseManager<User, UserCreateRequest>
+	public interface IUserManager : IBaseManager<UserAggregate, UserCreateRequest>
 	{
 		/// <summary>Изменяет существующий объект</summary>
 		/// <param name="id">Id изменямого объекта</param>
@@ -15,6 +16,6 @@ namespace TimeSheets.Domain.Interfaces
 		Task Update(Guid id, UserUpdateRequest request);
 
 		/// <summary> Возвращает пользователя по логину и паролю </summary>
-		Task<User> GetItem(LoginRequest request);
+		Task<UserAggregate> GetItem(LoginRequest request);
 	}
 }

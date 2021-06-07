@@ -12,18 +12,18 @@ namespace TimeSheets.Models.Entities
 	public class Employee
 	{
 		/// <summary>Id сотрудника</summary>
-		public Guid Id { get; set; }
+		public Guid Id { get; protected set; }
 	
 		/// <summary>Id пользователя</summary>
-		public Guid UserId { get; set; }
+		public Guid UserId { get; protected set; }
 
 		/// <summary>Пометка о том, что сотрудник удален</summary>
-		public bool IsDeleted { get; set; }
+		public bool IsDeleted { get; protected set; }
 
 
 
 		// Навигационные свойства
-		public User User { get; set; }
+		public UserAggregate User { get; set; }
 		public ICollection<SheetAggregate> Sheets { get; set; }
 
 	}
