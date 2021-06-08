@@ -9,13 +9,13 @@ namespace TimeSheets.Tests.AggregatesTests
 	{
 
 		[Fact]
-		public void SheetAggregate_CreateRandomFromSheetRequest()
+		public void SheetAggregate_CreateRandomFromRequest()
 		{
 			//Arrange
 			var request = AggregatesRequestBuilder.CreateRandomSheetCreateRequest();
 
 			//Act
-			var sheet = SheetAggregate.CreateFromSheetRequest(request);
+			var sheet = SheetAggregate.CreateFromRequest(request);
 
 			// Assert
 			sheet.Amount.Amount.Should().Be(request.Amount);
@@ -31,7 +31,7 @@ namespace TimeSheets.Tests.AggregatesTests
 		{
 			//Arrange
 			var request = AggregatesRequestBuilder.CreateRandomSheetCreateRequest();
-			var sheet = SheetAggregate.CreateFromSheetRequest(request);
+			var sheet = SheetAggregate.CreateFromRequest(request);
 
 			//Act
 			sheet.ApproveSheet();
@@ -46,7 +46,7 @@ namespace TimeSheets.Tests.AggregatesTests
 		{
 			//Arrange
 			var request = AggregatesRequestBuilder.CreateRandomSheetCreateRequest();
-			var sheet = SheetAggregate.CreateFromSheetRequest(request);
+			var sheet = SheetAggregate.CreateFromRequest(request);
 
 			//Act
 			sheet.MarkAsDeleted();
@@ -54,10 +54,6 @@ namespace TimeSheets.Tests.AggregatesTests
 			//Assert
 			sheet.IsDeleted.Should().BeTrue();
 		}
-
-		//Arrange
-		//Act
-		//Assert
 
 	}
 }

@@ -12,7 +12,7 @@ namespace TimeSheets.Infrastructure
 		/// <summary>Добывает хэш пароля</summary>
 		/// <param name="password">Хэшируемый пароль</param>
 		/// <returns>SHA1 хэш пароля</returns>
-		internal static byte[] GetPasswordHash(string password)
+		public static byte[] GetPasswordHash(string password)
 		{
 			using (var sha1 = new SHA1CryptoServiceProvider())
 			{

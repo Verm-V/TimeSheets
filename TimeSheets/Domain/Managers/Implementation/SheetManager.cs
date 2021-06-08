@@ -32,7 +32,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(SheetCreateRequest request)
 		{
-			var sheet = SheetAggregate.CreateFromSheetRequest(request);
+			var sheet = SheetAggregate.CreateFromRequest(request);
 
 			await _repo.Add(sheet);
 

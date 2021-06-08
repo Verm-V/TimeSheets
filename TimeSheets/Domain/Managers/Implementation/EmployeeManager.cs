@@ -33,7 +33,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(EmployeeCreateRequest request)
 		{
-			var employee = EmployeeAggregate.CreateFromEmployeeRequest(request);
+			var employee = EmployeeAggregate.CreateFromRequest(request);
 
 			await _repo.Add(employee);
 

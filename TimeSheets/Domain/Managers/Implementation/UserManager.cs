@@ -44,7 +44,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(UserCreateRequest request)
 		{
-			var user = UserAggregate.CreateFromUserRequest(request);
+			var user = UserAggregate.CreateFromRequest(request);
 
 			await _repo.Add(user);
 
@@ -54,7 +54,7 @@ namespace TimeSheets.Domain.Implementation
 		public async Task Update(Guid id, UserUpdateRequest request)
 		{
 			var item = await _repo.GetItem(id);
-			item.UpdateFromUserRequest(request);
+			item.UpdateFromRequest(request);
 		}
 
 		public async Task<bool> CheckUserIsDeleted(Guid id)

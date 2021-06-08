@@ -9,18 +9,20 @@ namespace TimeSheets.Tests.AggregatesTests
 	public class InvoiceAggregateTests
 	{
 		[Fact]
-		public void InvoiceAggregate_CreateFromInvoiceRequest()
+		public void InvoiceAggregate_CreateFromRequest()
 		{
 			//Arrange
 			var request = AggregatesRequestBuilder.CreateRandomInvoiceCreateRequest();
 
 			//Act
-			var invoice = InvoiceAggregate.CreateFromInvoiceRequest(request);
+			var invoice = InvoiceAggregate.CreateFromRequest(request);
 
 			//Assert
 			invoice.ContractId.Should().Be(request.ContractId);
 			invoice.DateStart.Should().Be(request.DateStart);
 			invoice.DateEnd.Should().Be(request.DateEnd);
+			invoice.IsDeleted.Should().BeFalse();
+
 		}
 
 		[Fact]
@@ -28,14 +30,14 @@ namespace TimeSheets.Tests.AggregatesTests
 		{
 			//Arrange
 			var invoiceRequest = AggregatesRequestBuilder.CreateRandomInvoiceCreateRequest();
-			var invoice = InvoiceAggregate.CreateFromInvoiceRequest(invoiceRequest);
+			var invoice = InvoiceAggregate.CreateFromRequest(invoiceRequest);
 
 			var sheets = new List<SheetAggregate>();
 			var sheetsCount = 3;
 			for (int i = 0; i < sheetsCount; i++)
 			{
 				var sheetRequest = AggregatesRequestBuilder.CreateRandomSheetCreateRequest();
-				sheets.Add(SheetAggregate.CreateFromSheetRequest(sheetRequest));
+				sheets.Add(SheetAggregate.CreateFromRequest(sheetRequest));
 			}
 
 			//Act
@@ -51,7 +53,7 @@ namespace TimeSheets.Tests.AggregatesTests
 		{
 			//Arrange
 			var request = AggregatesRequestBuilder.CreateRandomInvoiceCreateRequest();
-			var invoice = InvoiceAggregate.CreateFromInvoiceRequest(request);
+			var invoice = InvoiceAggregate.CreateFromRequest(request);
 
 			//Act
 			invoice.MarkAsDeleted();

@@ -15,7 +15,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание сервиса</summary>
 		/// <param name="request">Запрос на создание сервиса</param>
 		/// <returns>Новый сервис</returns>
-		public static ServiceAggregate CreateFromServiceRequest(ServiceRequest request)
+		public static ServiceAggregate CreateFromRequest(ServiceRequest request)
 		{
 			return new ServiceAggregate()
 			{
@@ -27,7 +27,7 @@ namespace TimeSheets.Domain.Aggregates
 
 		/// <summary>Обновление сервиса</summary>
 		/// <param name="request">Запрос на обновление сервиса</param>
-		public void UpdateFromServiceRequest(ServiceRequest request)
+		public void UpdateFromRequest(ServiceRequest request)
 		{
 			Name = request.Name;
 		}

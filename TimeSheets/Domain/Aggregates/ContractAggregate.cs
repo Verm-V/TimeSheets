@@ -15,7 +15,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание контракта</summary>
 		/// <param name="request">Запрос на создание контракта</param>
 		/// <returns>Новый контракт</returns>
-		public static ContractAggregate CreateFromContractRequest(ContractCreateRequest request)
+		public static ContractAggregate CreateFromRequest(ContractCreateRequest request)
 		{
 			return new ContractAggregate()
 			{
@@ -30,7 +30,7 @@ namespace TimeSheets.Domain.Aggregates
 
 		/// <summary>Обновление контракта</summary>
 		/// <param name="request">Запрос на обновление контракта</param>
-		public void UpdateFromContractRequest(ContractUpdateRequest request)
+		public void UpdateFromRequest(ContractUpdateRequest request)
 		{
 			Title = request.Title;
 			Description = request.Description;

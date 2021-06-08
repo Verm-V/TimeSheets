@@ -15,7 +15,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание работника</summary>
 		/// <param name="request">Запрос на создание работника</param>
 		/// <returns>Новый работника</returns>
-		public static EmployeeAggregate CreateFromEmployeeRequest(EmployeeCreateRequest request)
+		public static EmployeeAggregate CreateFromRequest(EmployeeCreateRequest request)
 		{
 			return new EmployeeAggregate()
 			{

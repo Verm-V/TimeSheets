@@ -18,7 +18,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание пользователя</summary>
 		/// <param name="request">Запрос на создание пользователя</param>
 		/// <returns>Новый пользователь</returns>
-		public static UserAggregate CreateFromUserRequest(UserCreateRequest request)
+		public static UserAggregate CreateFromRequest(UserCreateRequest request)
 		{
 			return new UserAggregate()
 			{
@@ -33,7 +33,7 @@ namespace TimeSheets.Domain.Aggregates
 
 		/// <summary>Обновление пользователя</summary>
 		/// <param name="request">Запрос на обновление пользователя</param>
-		public void UpdateFromUserRequest(UserUpdateRequest request)
+		public void UpdateFromRequest(UserUpdateRequest request)
 		{
 			Username = request.Username;
 			PasswordHash = Security.GetPasswordHash(request.Password);

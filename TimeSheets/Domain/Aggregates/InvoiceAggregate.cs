@@ -19,7 +19,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание счета</summary>
 		/// <param name="request">Запрос на создание счета</param>
 		/// <returns>Новый счет</returns>
-		public static InvoiceAggregate CreateFromInvoiceRequest(InvoiceCreateRequest request)
+		public static InvoiceAggregate CreateFromRequest(InvoiceCreateRequest request)
 		{
 			return new InvoiceAggregate()
 			{

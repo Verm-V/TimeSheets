@@ -15,7 +15,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание клиента</summary>
 		/// <param name="request">Запрос на создание клиента</param>
 		/// <returns>Новый клиент</returns>
-		public static ClientAggregate CreateFromClientRequest(ClientCreateRequest request)
+		public static ClientAggregate CreateFromRequest(ClientCreateRequest request)
 		{
 			return new ClientAggregate()
 			{

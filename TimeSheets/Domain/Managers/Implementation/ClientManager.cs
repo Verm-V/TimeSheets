@@ -33,7 +33,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(ClientCreateRequest request)
 		{
-			var client = ClientAggregate.CreateFromClientRequest(request);
+			var client = ClientAggregate.CreateFromRequest(request);
 
 			await _repo.Add(client);
 

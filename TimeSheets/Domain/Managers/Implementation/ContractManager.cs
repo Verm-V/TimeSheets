@@ -32,7 +32,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(ContractCreateRequest request)
 		{
-			var contract = ContractAggregate.CreateFromContractRequest(request);
+			var contract = ContractAggregate.CreateFromRequest(request);
 
 			await _repo.Add(contract);
 
@@ -44,7 +44,7 @@ namespace TimeSheets.Domain.Implementation
 			var item = await _repo.GetItem(id);
 			if(item!=null)
 			{
-				item.UpdateFromContractRequest(request);
+				item.UpdateFromRequest(request);
 			}
 
 		}

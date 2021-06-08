@@ -33,7 +33,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<Guid> Create(ServiceRequest request)
 		{
-			var Service = ServiceAggregate.CreateFromServiceRequest(request);
+			var Service = ServiceAggregate.CreateFromRequest(request);
 
 			await _repo.Add(Service);
 
@@ -45,7 +45,7 @@ namespace TimeSheets.Domain.Implementation
 			var item = await _repo.GetItem(id);
 			if (item != null)
 			{
-				item.UpdateFromServiceRequest(request);
+				item.UpdateFromRequest(request);
 			}
 		}
 

@@ -35,7 +35,7 @@ namespace TimeSheets.Domain.Implementation
 		public async Task<Guid> Create(InvoiceCreateRequest request)
 		{
 			//Создаем новую сущность счета
-			var invoice = InvoiceAggregate.CreateFromInvoiceRequest(request);
+			var invoice = InvoiceAggregate.CreateFromRequest(request);
 
 			//Устанавливаем список карточек связанных со счетом и рассчитываем сумму
 			var sheets = await _invoiceRepo.GetSheets(
