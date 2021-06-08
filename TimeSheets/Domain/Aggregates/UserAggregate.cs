@@ -32,8 +32,7 @@ namespace TimeSheets.Domain.Aggregates
 		}
 
 		/// <summary>Обновление пользователя</summary>
-		/// <param name="request">Запрос на обновление пльзователя</param>
-		/// <returns>Обновленный клиент</returns>
+		/// <param name="request">Запрос на обновление пользователя</param>
 		public void UpdateFromUserRequest(UserUpdateRequest request)
 		{
 			Username = request.Username;

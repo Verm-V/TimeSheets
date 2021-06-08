@@ -32,7 +32,7 @@ namespace TimeSheets.Models.Entities
 
 
 		// Навигационные свойства
-		public Contract Contract { get; set; }
+		public ContractAggregate Contract { get; set; }
 		public List<SheetAggregate> Sheets { get; set; } = new List<SheetAggregate>();
 	}
 }

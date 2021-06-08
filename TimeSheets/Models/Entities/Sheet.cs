@@ -45,8 +45,8 @@ namespace TimeSheets.Models.Entities
 
 		// Навигационные свойства
 		public EmployeeAggregate Employee { get; set; }
-		public Contract Contract { get; set; }
-		public Service Service { get; set; }
+		public ContractAggregate Contract { get; set; }
+		public ServiceAggregate Service { get; set; }
 		public InvoiceAggregate Invoice { get; set; }
 
 	}

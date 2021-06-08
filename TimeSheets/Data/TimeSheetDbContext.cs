@@ -12,9 +12,9 @@ namespace TimeSheets.Data
 	public class TimeSheetDbContext : DbContext
 	{
 		public DbSet<ClientAggregate> Clients { get; set; }
-		public DbSet<Contract> Contracts { get; set; }
+		public DbSet<ContractAggregate> Contracts { get; set; }
 		public DbSet<EmployeeAggregate> Employees { get; set; }
-		public DbSet<Service> Services { get; set; }
+		public DbSet<ServiceAggregate> Services { get; set; }
 		public DbSet<InvoiceAggregate> Invoices { get; set; }
 		public DbSet<SheetAggregate> Sheets { get; set; }
 		public DbSet<UserAggregate> Users { get; set; }

@@ -12,13 +12,13 @@ namespace TimeSheets.Models.Entities
 	public class Service
 	{
 		/// <summary>Id услуги</summary>
-		public Guid Id { get; set; }
+		public Guid Id { get; protected set; }
 	
 		/// <summary>Наименование услуги</summary>
-		public string Name { get; set; }
+		public string Name { get; protected set; }
 
 		/// <summary>Пометка о том, что услуга удалена</summary>
-		public bool IsDeleted { get; set; }
+		public bool IsDeleted { get; protected set; }
 
 
 
