@@ -11,6 +11,8 @@
   
 - **[Задание урока №7 - Domain Driven Design.](./Docs/task-07.md)**  
   
+- **[Задание урока №8 - Unit Tests (XUnit).](./Docs/task-08.md)**  
+  
 *[Скрипт создания базы данных со всеми миграциями](./Docs/DbCreationScript.md)*  
 (Создан с помощью **dotnet ef**)  
   

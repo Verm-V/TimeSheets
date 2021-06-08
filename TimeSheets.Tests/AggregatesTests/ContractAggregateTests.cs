@@ -33,10 +33,12 @@ namespace TimeSheets.Tests.AggregatesTests
 			var updateRequest = AggregatesRequestBuilder.CreateRandomContractUpdateRequest();
 
 			//Act
-			Action act = () =>  contract.UpdateFromRequest(updateRequest);
+			contract.UpdateFromRequest(updateRequest);
 
 			// Assert
-			act.Should().NotThrow();
+			contract.Title.Should().Be(updateRequest.Title);
+			contract.Description.Should().Be(updateRequest.Description);
+
 		}
 
 

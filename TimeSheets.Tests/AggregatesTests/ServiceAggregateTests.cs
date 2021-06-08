@@ -31,10 +31,10 @@ namespace TimeSheets.Tests.AggregatesTests
 			var updateRequest = AggregatesRequestBuilder.CreateRandomServiceRequest();
 
 			//Act
-			Action act = () => service.UpdateFromRequest(updateRequest);
+			service.UpdateFromRequest(updateRequest);
 
 			// Assert
-			act.Should().NotThrow();
+			service.Name.Should().Be(updateRequest.Name);
 		}
 
 
