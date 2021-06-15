@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Infrastructure.Constants;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с карточками учета времени</summary>
+	[ExcludeFromCodeCoverage]
 	public class SheetsController : TimeSheetBaseController
 	{
 		private readonly ISheetManager _sheetManager;
@@ -62,14 +64,12 @@ namespace TimeSheets.Controllers
 			return Ok(id);
 		}
 
-		/// <summary>Изменение существующей карточки учета времени</summary>
-		/// <param name="id">Id изменяемой карточки</param>
-		/// <param name="request">Запрос на изменение карточки</param>
+		/// <summary>Подтверждение карточки</summary>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] SheetUpdateRequest request)
+		public async Task<IActionResult> Approve([FromRoute] Guid id)
 		{
-			await _sheetManager.Update(id, request);
+			await _sheetManager.Approve(id);
 			return Ok();
 		}
 

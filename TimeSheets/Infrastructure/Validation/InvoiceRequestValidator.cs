@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Models.Dto.Requests;
@@ -8,6 +9,7 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Infrastructure.Validation
 {
 	/// <summary>Валидатор запросов по счетам</summary>
+	[ExcludeFromCodeCoverage]
 	public class InvoiceRequestValidator : AbstractValidator<InvoiceCreateRequest>
 	{
 		public InvoiceRequestValidator()

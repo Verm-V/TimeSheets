@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TimeSheets.Models.Dto.Requests
 {
 	/// <summary>Запрос на изменение пользователя системы</summary>
+	[ExcludeFromCodeCoverage]
 	public class UserUpdateRequest
 	{
 		/// <summary>Имя пользователя</summary>
