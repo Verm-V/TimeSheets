@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TimeSheets.Models;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
-	public class ContractConfiguration : IEntityTypeConfiguration<Contract>
+	public class ContractConfiguration : IEntityTypeConfiguration<ContractAggregate>
 	{
-		public void Configure(EntityTypeBuilder<Contract> builder)
+		[ExcludeFromCodeCoverage]
+		public void Configure(EntityTypeBuilder<ContractAggregate> builder)
 		{
 			builder.ToTable("contracts");
 

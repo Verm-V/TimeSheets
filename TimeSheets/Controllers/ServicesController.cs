@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -9,9 +11,10 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ServicesController : ControllerBase
+	/// <summary>Работа с услугами оказываемыми клиентам</summary>
+	[ExcludeFromCodeCoverage]
+	[ApiExplorerSettings(GroupName = "v2")]
+	public class ServicesController : TimeSheetBaseController
 	{
 		private readonly IServiceManager _manager;
 
@@ -23,6 +26,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации об услуге по ее Id</summary>
 		/// <param name="id">Id услуги</param>
 		/// <returns>Инорфмация об услуге</returns>
+		[Authorize(Roles = "admin, user, client")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
@@ -32,6 +36,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких услугах</summary>
 		/// <returns>Коллекция содержащая информацию об услугах</returns>
+		[Authorize(Roles = "admin, user, client")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
@@ -42,6 +47,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Создание нового услуги</summary>
 		/// <param name="request">Закпрос на создание услуги</param>
 		/// <returns>Id созданной услуги</returns>
+		[Authorize(Roles = "admin, user")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] ServiceRequest request)
 		{
@@ -52,6 +58,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Изменение существующй услуги</summary>
 		/// <param name="id">Id изменяемой услуги</param>
 		/// <param name="request">Запрос на изменение услуги</param>
+		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ServiceRequest request)
 		{
@@ -62,6 +69,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Удаление услуги</summary>
 		/// <param name="id">Id удаляемой услуги</param>
+		[Authorize(Roles = "admin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{

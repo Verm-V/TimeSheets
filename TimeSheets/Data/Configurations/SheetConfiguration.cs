@@ -1,12 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TimeSheets.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Domain.ValueObjects;
+using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
-	public class SheetConfiguration : IEntityTypeConfiguration<Sheet>
+	[ExcludeFromCodeCoverage]
+	public class SheetConfiguration : IEntityTypeConfiguration<SheetAggregate>
 	{
-		public void Configure(EntityTypeBuilder<Sheet> builder)
+		public void Configure(EntityTypeBuilder<SheetAggregate> builder)
 		{
 			builder.ToTable("sheets");
 
@@ -33,6 +39,15 @@ namespace TimeSheets.Data.Configurations
 				.HasOne(sheet => sheet.Employee)
 				.WithMany(employee => employee.Sheets)
 				.HasForeignKey("EmployeeId");
+
+			//Value Objects
+			var converter = new ValueConverter<SpentTime, int>(
+				v => v.Amount,
+				v => SpentTime.FromInt(v));
+
+			builder.Property(x => x.Amount)
+				.HasConversion(converter);
+
 		}
 	}
 }

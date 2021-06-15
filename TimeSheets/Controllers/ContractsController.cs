@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -9,9 +11,10 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ContractsController : ControllerBase
+	/// <summary>Работа с контрактами</summary>
+	//[ApiExplorerSettings(GroupName = "v2")]
+	[ExcludeFromCodeCoverage]
+	public class ContractsController : TimeSheetBaseController
 	{
 		private readonly IContractManager _manager;
 
@@ -23,6 +26,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации о контракте по его Id</summary>
 		/// <param name="id">Id контракта</param>
 		/// <returns>Инорфмация о контракте</returns>
+		[Authorize(Roles = "admin, user, client")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
@@ -32,6 +36,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких контрактах</summary>
 		/// <returns>Коллекция содержащая информацию о контрактах</returns>
+		//[Authorize(Roles = "admin, user, client")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
@@ -43,7 +48,8 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Закпрос на создание контракта</param>
 		/// <returns>Id созданного контракта</returns>
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] ContractRequest request)
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> Create([FromBody] ContractCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
@@ -52,8 +58,9 @@ namespace TimeSheets.Controllers
 		/// <summary>Изменение существующего контракта</summary>
 		/// <param name="id">Id изменяемого контракта</param>
 		/// <param name="request">Запрос на изменение контракта</param>
+		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractUpdateRequest request)
 		{
 			await _manager.Update(id, request);
 			return Ok();
@@ -62,6 +69,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Удаление контракта</summary>
 		/// <param name="id">Id удаляемого конракта</param>
+		[Authorize(Roles = "admin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
 		{

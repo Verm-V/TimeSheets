@@ -1,4 +1,4 @@
-﻿*[Назад](./task-04.md)*  
+﻿*[Назад](./../README.md)*  
 
 ```sql
 CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
@@ -198,5 +198,48 @@ INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20210525090846_FourthMigration', '5.0.6');
 
 COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE users ADD "PasswordHash" bytea NULL;
+
+ALTER TABLE users ADD "Role" text NULL;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210526165414_5_Migration_Add_Authentification', '5.0.6');
+
+COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE users ADD "RefreshToken" text NULL;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210527164546_6_migration_Refresh_Tokens', '5.0.6');
+
+COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE sheets ADD "ApprovedDate" timestamp without time zone NOT NULL DEFAULT TIMESTAMP '0001-01-01 00:00:00';
+
+ALTER TABLE sheets ADD "IsApproved" boolean NOT NULL DEFAULT FALSE;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210604104153_7_Migration_Aggregates_Added', '5.0.6');
+
+COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE sheets ALTER COLUMN "Amount" DROP NOT NULL;
+
+ALTER TABLE invoices ALTER COLUMN "Sum" DROP NOT NULL;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20210605102236_8_Migration_Added_ValueTypes', '5.0.6');
+
+COMMIT;
+
 
 ```

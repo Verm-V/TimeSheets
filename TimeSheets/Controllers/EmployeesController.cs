@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -9,9 +11,11 @@ using TimeSheets.Models.Dto.Requests;
 
 namespace TimeSheets.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class EmployeesController : ControllerBase
+	/// <summary>Работа со служащими</summary>
+	[ExcludeFromCodeCoverage]
+	[ApiExplorerSettings(GroupName = "v2")]
+	[Authorize(Roles = "admin")]
+	public class EmployeesController : TimeSheetBaseController
 	{
 		private readonly IEmployeeManager _manager;
 
@@ -43,21 +47,10 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Закпрос на создание сотрудника</param>
 		/// <returns>Id созданного сотрудника</returns>
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] EmployeeRequest request)
+		public async Task<IActionResult> Create([FromBody] EmployeeCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
-		}
-
-		/// <summary>Изменение существующего сотрудника</summary>
-		/// <param name="id">Id изменяемого сотрудника</param>
-		/// <param name="request">Запрос на изменение сотрудника</param>
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] EmployeeRequest request)
-		{
-			await _manager.Update(id, request);
-			return Ok();
-
 		}
 
 		/// <summary>Удаление сотрудника</summary>
