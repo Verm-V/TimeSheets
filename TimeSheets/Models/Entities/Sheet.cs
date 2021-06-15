@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Aggregates;
@@ -8,6 +9,7 @@ using TimeSheets.Domain.ValueObjects;
 namespace TimeSheets.Models.Entities
 {
 	/// <summary>Карточка учета затраченного времени сотрудником</summary>
+	[ExcludeFromCodeCoverage]
 	public class Sheet
 	{
 		/// <summary>Id карточки</summary>
@@ -42,9 +44,9 @@ namespace TimeSheets.Models.Entities
 
 
 		// Навигационные свойства
-		public Employee Employee { get; set; }
-		public Contract Contract { get; set; }
-		public Service Service { get; set; }
+		public EmployeeAggregate Employee { get; set; }
+		public ContractAggregate Contract { get; set; }
+		public ServiceAggregate Service { get; set; }
 		public InvoiceAggregate Invoice { get; set; }
 
 	}

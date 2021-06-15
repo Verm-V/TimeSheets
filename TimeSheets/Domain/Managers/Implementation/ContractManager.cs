@@ -5,9 +5,12 @@ using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class ContractManager : IContractManager
 	{
 		private readonly IContractRepo _repo;
@@ -17,27 +20,19 @@ namespace TimeSheets.Domain.Implementation
 			_repo = repo;
 		}
 
-		public async Task<Contract> GetItem(Guid id)
+		public async Task<ContractAggregate> GetItem(Guid id)
 		{
 			return await _repo.GetItem(id);
 		}
 
-		public async Task<IEnumerable<Contract>> GetItems()
+		public async Task<IEnumerable<ContractAggregate>> GetItems()
 		{
 			return await _repo.GetItems();
 		}
 
 		public async Task<Guid> Create(ContractCreateRequest request)
 		{
-			var contract = new Contract()
-			{
-				Id = Guid.NewGuid(),
-				Title = request.Title,
-				DateStart = request.DateStart,
-				DateEnd = request.DateEnd,
-				Description = request.Description,
-				IsDeleted = false,
-			};
+			var contract = ContractAggregate.CreateFromRequest(request);
 
 			await _repo.Add(contract);
 
@@ -49,10 +44,7 @@ namespace TimeSheets.Domain.Implementation
 			var item = await _repo.GetItem(id);
 			if(item!=null)
 			{
-				item.Title = request.Title;
-				item.Description = request.Description;
-
-				await _repo.Update(item);
+				item.UpdateFromRequest(request);
 			}
 
 		}

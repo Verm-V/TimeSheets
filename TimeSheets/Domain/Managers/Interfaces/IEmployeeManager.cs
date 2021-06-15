@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Interfaces
 {
-	public interface IEmployeeManager : IBaseManager<Employee, EmployeeCreateRequest>
+	public interface IEmployeeManager : IBaseManager<EmployeeAggregate, EmployeeCreateRequest>
 	{
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace TimeSheets.Domain.ValueObjects
 	{
 		public int Amount { get; }
 
+		[ExcludeFromCodeCoverage]
 		private SpentTime() { }
 
 		private SpentTime(int amount)

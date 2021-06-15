@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -12,6 +13,7 @@ namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с контрактами</summary>
 	//[ApiExplorerSettings(GroupName = "v2")]
+	[ExcludeFromCodeCoverage]
 	public class ContractsController : TimeSheetBaseController
 	{
 		private readonly IContractManager _manager;

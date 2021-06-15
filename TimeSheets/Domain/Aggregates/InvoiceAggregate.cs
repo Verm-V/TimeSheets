@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.ValueObjects;
+using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Domain.Aggregates
@@ -16,18 +17,17 @@ namespace TimeSheets.Domain.Aggregates
 		private InvoiceAggregate() { }
 
 		/// <summary>Создание счета</summary>
-		/// <param name="contractId">Id контракта</param>
-		/// <param name="dateStart">Дата начала периода выставления счета</param>
-		/// <param name="dateEnd">Дата конца периода выставления счета</param>
+		/// <param name="request">Запрос на создание счета</param>
 		/// <returns>Новый счет</returns>
-		public static InvoiceAggregate Create(Guid contractId, DateTime dateStart, DateTime dateEnd)
+		public static InvoiceAggregate CreateFromRequest(InvoiceCreateRequest request)
 		{
 			return new InvoiceAggregate()
 			{
 				Id = Guid.NewGuid(),
-				ContractId = contractId,
-				DateStart = dateStart,
-				DateEnd = dateEnd,
+				ContractId = request.ContractId,
+				DateStart = request.DateStart,
+				DateEnd = request.DateEnd,
+				IsDeleted = false,
 			};
 		}
 

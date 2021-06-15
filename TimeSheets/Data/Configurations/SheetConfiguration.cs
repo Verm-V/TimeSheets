@@ -2,12 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models.Entities;
 
 namespace TimeSheets.Data.Configurations
 {
+	[ExcludeFromCodeCoverage]
 	public class SheetConfiguration : IEntityTypeConfiguration<SheetAggregate>
 	{
 		public void Configure(EntityTypeBuilder<SheetAggregate> builder)

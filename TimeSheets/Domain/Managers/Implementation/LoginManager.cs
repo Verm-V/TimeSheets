@@ -13,9 +13,12 @@ using TimeSheets.Infrastructure.Extensions;
 using TimeSheets.Data.Interfaces;
 using System;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class LoginManager : ILoginManager
 	{
 		private readonly JwtAccessOptions _jwtAccessOptions;
@@ -33,13 +36,13 @@ namespace TimeSheets.Domain.Implementation
 			_userRepo = userRepo;
 		}
 
-		public async Task<LoginResponse> Authenticate(User user)
+		public async Task<LoginResponse> Authenticate(UserAggregate user)
 		{
 			// Генерируем пару токенов
 			var loginResponse = CreateTokensPair(user);
 
 			// Запись Refresh токена в базу к соответствующему пользователю
-			user.RefreshToken = loginResponse.RefreshToken;
+			user.UpdateRefreshToken(loginResponse.RefreshToken);
 			await _userRepo.Update(user);
 
 			return loginResponse;
@@ -47,7 +50,7 @@ namespace TimeSheets.Domain.Implementation
 
 		public async Task<LoginResponse> Refresh(RefreshRequest request)
 		{
-			// Извдекаем их токена дату до которой он действителен и Id пользователя
+			// Извлекаем их токена дату до которой он действителен и Id пользователя
 			var securityHandler = new JwtSecurityTokenHandler();
 			var refreshTokenRaw = securityHandler.ReadJwtToken(request.RefreshToken);
 			var validTo = refreshTokenRaw.ValidTo;
@@ -67,7 +70,7 @@ namespace TimeSheets.Domain.Implementation
 			var loginResponse = CreateTokensPair(user);
 
 			// Запись Refresh токена в базу к соответствующему пользователю
-			user.RefreshToken = loginResponse.RefreshToken;
+			user.UpdateRefreshToken(loginResponse.RefreshToken);
 			await _userRepo.Update(user);
 
 			return loginResponse;
@@ -77,7 +80,7 @@ namespace TimeSheets.Domain.Implementation
 		/// <summary>Создает пару JWT токенов для пользователя</summary>
 		/// <param name="user">Аутентифицируемый пользователь</param>
 		/// <returns>Пара Access/refresh JWT токенов</returns>
-		private LoginResponse CreateTokensPair(User user)
+		private LoginResponse CreateTokensPair(UserAggregate user)
 		{
 			// Создание списка Claim'ов
 			var claims = new List<Claim>

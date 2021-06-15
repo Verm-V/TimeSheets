@@ -8,9 +8,11 @@ using TimeSheets.Domain.ValueObjects;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Domain.Aggregates;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class InvoiceManager : IInvoiceManager
 	{
 		private readonly IInvoiceRepo _invoiceRepo;
@@ -33,10 +35,7 @@ namespace TimeSheets.Domain.Implementation
 		public async Task<Guid> Create(InvoiceCreateRequest request)
 		{
 			//Создаем новую сущность счета
-			var invoice = InvoiceAggregate.Create(
-				request.ContractId,
-				request.DateStart,
-				request.DateEnd);
+			var invoice = InvoiceAggregate.CreateFromRequest(request);
 
 			//Устанавливаем список карточек связанных со счетом и рассчитываем сумму
 			var sheets = await _invoiceRepo.GetSheets(

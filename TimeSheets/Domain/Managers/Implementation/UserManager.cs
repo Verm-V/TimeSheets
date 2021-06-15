@@ -8,9 +8,13 @@ using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
+using TimeSheets.Infrastructure;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class UserManager : IUserManager
 	{
 		private readonly IUserRepo _repo;
@@ -20,50 +24,37 @@ namespace TimeSheets.Domain.Implementation
 			_repo = repo;
 		}
 
-		public async Task<User> GetItem(Guid id)
+		public async Task<UserAggregate> GetItem(Guid id)
 		{
 			return await _repo.GetItem(id);
 		}
 
-		public async Task<User> GetItem(LoginRequest request)
+		public async Task<UserAggregate> GetItem(LoginRequest request)
 		{
-			var passwordHash = GetPasswordHash(request.Password);
+			var passwordHash = Security.GetPasswordHash(request.Password);
 			var user = await _repo.GetItem(request.Login, passwordHash);
 
 			return user;
 		}
 
-		public async Task<IEnumerable<User>> GetItems()
+		public async Task<IEnumerable<UserAggregate>> GetItems()
 		{
 			return await _repo.GetItems();
 		}
 
 		public async Task<Guid> Create(UserCreateRequest request)
 		{
-			var User = new User()
-			{
-				Id = Guid.NewGuid(),
-				Username = request.Username,
-				PasswordHash = GetPasswordHash(request.Password),
-				Role = request.Role,
-				IsDeleted = false,
-			};
+			var user = UserAggregate.CreateFromRequest(request);
 
-			await _repo.Add(User);
+			await _repo.Add(user);
 
-			return User.Id;
+			return user.Id;
 		}
 
 		public async Task Update(Guid id, UserUpdateRequest request)
 		{
 			var item = await _repo.GetItem(id);
-			if(item!=null)
-			{
-				item.Username = request.Username;
-				item.PasswordHash = GetPasswordHash(request.Password);
-				item.Role = request.Role;
-				await _repo.Update(item);
-			}
+			item.UpdateFromRequest(request);
 		}
 
 		public async Task<bool> CheckUserIsDeleted(Guid id)
@@ -76,16 +67,7 @@ namespace TimeSheets.Domain.Implementation
 			await _repo.Delete(id);
 		}
 
-		/// <summary>Добывает хэш пароля</summary>
-		/// <param name="password">Хэшируемый пароль</param>
-		/// <returns>SHA1 хэш пароля</returns>
-		private static byte[] GetPasswordHash(string password)
-		{
-			using (var sha1 = new SHA1CryptoServiceProvider())
-			{
-				return sha1.ComputeHash(Encoding.Unicode.GetBytes(password));
-			}
-		}
+
 
 	}
 }

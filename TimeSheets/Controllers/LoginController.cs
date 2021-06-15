@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Responses;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Controllers
 {
 	/// <summary>Аутентификация пользователей</summary>
+	[ExcludeFromCodeCoverage]
 	[Route("api")]
 	public class LoginController : TimeSheetBaseController
 	{

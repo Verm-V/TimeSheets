@@ -16,7 +16,7 @@ namespace TimeSheets.Domain.Aggregates
 		/// <summary>Создание новой карточки учета времени</summary>
 		/// <param name="request">Запрос на создание карточки</param>
 		/// <returns>Новая карточка учета времени</returns>
-		public static SheetAggregate CreateFromSheetRequest(SheetCreateRequest request)
+		public static SheetAggregate CreateFromRequest(SheetCreateRequest request)
 		{
 			return new SheetAggregate()
 			{
@@ -25,7 +25,8 @@ namespace TimeSheets.Domain.Aggregates
 				ContractId = request.ContractId,
 				Date = request.Date,
 				EmployeeId = request.EmployeeId,
-				ServiceId = request.ServiceId
+				ServiceId = request.ServiceId,
+				IsDeleted = false,
 			};
 		}
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Data.Configurations;
 using TimeSheets.Domain.Aggregates;
 using TimeSheets.Domain.ValueObjects;
@@ -7,15 +8,16 @@ using TimeSheets.Models.Entities;
 namespace TimeSheets.Data
 {
 	/// <summary>Контекст базы данных</summary>
+	[ExcludeFromCodeCoverage]
 	public class TimeSheetDbContext : DbContext
 	{
-		public DbSet<Client> Clients { get; set; }
-		public DbSet<Contract> Contracts { get; set; }
-		public DbSet<Employee> Employees { get; set; }
-		public DbSet<Service> Services { get; set; }
+		public DbSet<ClientAggregate> Clients { get; set; }
+		public DbSet<ContractAggregate> Contracts { get; set; }
+		public DbSet<EmployeeAggregate> Employees { get; set; }
+		public DbSet<ServiceAggregate> Services { get; set; }
 		public DbSet<InvoiceAggregate> Invoices { get; set; }
 		public DbSet<SheetAggregate> Sheets { get; set; }
-		public DbSet<User> Users { get; set; }
+		public DbSet<UserAggregate> Users { get; set; }
 
 		public TimeSheetDbContext(DbContextOptions<TimeSheetDbContext> options) : base(options)
 		{

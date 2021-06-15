@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Requests;
 using TimeSheets.Infrastructure.Constants;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с карточками учета времени</summary>
+	[ExcludeFromCodeCoverage]
 	public class SheetsController : TimeSheetBaseController
 	{
 		private readonly ISheetManager _sheetManager;

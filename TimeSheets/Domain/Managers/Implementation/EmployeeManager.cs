@@ -6,9 +6,12 @@ using TimeSheets.Data.Interfaces;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Entities;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
+using TimeSheets.Domain.Aggregates;
 
 namespace TimeSheets.Domain.Implementation
 {
+	[ExcludeFromCodeCoverage]
 	public class EmployeeManager : IEmployeeManager
 	{
 		private readonly IEmployeeRepo _repo;
@@ -18,28 +21,23 @@ namespace TimeSheets.Domain.Implementation
 			_repo = repo;
 		}
 
-		public async Task<Employee> GetItem(Guid id)
+		public async Task<EmployeeAggregate> GetItem(Guid id)
 		{
 			return await _repo.GetItem(id);
 		}
 
-		public async Task<IEnumerable<Employee>> GetItems()
+		public async Task<IEnumerable<EmployeeAggregate>> GetItems()
 		{
 			return await _repo.GetItems();
 		}
 
 		public async Task<Guid> Create(EmployeeCreateRequest request)
 		{
-			var Employee = new Employee()
-			{
-				Id = Guid.NewGuid(),
-				UserId = request.UserId,
-				IsDeleted = false,
-			};
+			var employee = EmployeeAggregate.CreateFromRequest(request);
 
-			await _repo.Add(Employee);
+			await _repo.Add(employee);
 
-			return Employee.Id;
+			return employee.Id;
 		}
 
 		public async Task<bool> CheckEmployeeIsDeleted(Guid id)
