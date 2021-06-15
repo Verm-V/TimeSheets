@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -11,10 +12,9 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с контрактами</summary>
-	[ApiExplorerSettings(GroupName = "v2")]
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ContractsController : ControllerBase
+	//[ApiExplorerSettings(GroupName = "v2")]
+	[ExcludeFromCodeCoverage]
+	public class ContractsController : TimeSheetBaseController
 	{
 		private readonly IContractManager _manager;
 
@@ -36,7 +36,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких контрактах</summary>
 		/// <returns>Коллекция содержащая информацию о контрактах</returns>
-		[Authorize(Roles = "admin, user, client")]
+		//[Authorize(Roles = "admin, user, client")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
@@ -49,7 +49,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданного контракта</returns>
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> Create([FromBody] ContractRequest request)
+		public async Task<IActionResult> Create([FromBody] ContractCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
@@ -60,7 +60,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на изменение контракта</param>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ContractUpdateRequest request)
 		{
 			await _manager.Update(id, request);
 			return Ok();

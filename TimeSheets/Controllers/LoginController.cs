@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Responses;
 using TimeSheets.Models.Dto.Requests;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Controllers
 {
 	/// <summary>Аутентификация пользователей</summary>
+	[ExcludeFromCodeCoverage]
 	[Route("api")]
-	[ApiController]
-	public class LoginController : ControllerBase
+	public class LoginController : TimeSheetBaseController
 	{
 		private readonly IUserManager _userManager;
 		private readonly ILoginManager _loginManager;
@@ -29,7 +30,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на аутентификацию пользователя</param>
 		/// <returns>Пара Access/Refresh JWT токенов</returns>
 		[AllowAnonymous]
-		[Route("login")]
+		[Route("Login")]
 		[HttpPost]
 		public async Task<IActionResult> Login([FromBody] LoginRequest request)
 		{
@@ -49,7 +50,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос содержащий Refresh JWT токен</param>
 		/// <returns>Новая пара Access/Refresh JWT токенов</returns>
 		[AllowAnonymous]
-		[Route("refresh")]
+		[Route("Refresh")]
 		[HttpPost]
 		public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
 		{

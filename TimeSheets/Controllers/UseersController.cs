@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TimeSheets.Domain.Interfaces;
@@ -11,9 +12,8 @@ using TimeSheets.Models.Dto.Requests;
 namespace TimeSheets.Controllers
 {
 	/// <summary>Работа с пользователями</summary>
-	[Route("api/[controller]")]
-	[ApiController]
-	public class UsersController : ControllerBase
+	[ExcludeFromCodeCoverage]
+	public class UsersController : TimeSheetBaseController
 	{
 		private readonly IUserManager _manager;
 
@@ -25,6 +25,7 @@ namespace TimeSheets.Controllers
 		/// <summary>Получение информации о пользователе по его Id</summary>
 		/// <param name="id">Id пользователя</param>
 		/// <returns>Инорфмация о пользователе</returns>
+		[Authorize(Roles = "admin")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
@@ -46,7 +47,7 @@ namespace TimeSheets.Controllers
 		/// <returns>Id созданного пользователя</returns>
 		[Authorize(Roles = "admin")]
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] UserRequest request)
+		public async Task<IActionResult> Create([FromBody] UserCreateRequest request)
 		{
 			var id = await _manager.Create(request);
 			return Ok(id);
@@ -57,7 +58,7 @@ namespace TimeSheets.Controllers
 		/// <param name="request">Запрос на изменение пользователя</param>
 		[Authorize(Roles = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserRequest request)
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserUpdateRequest request)
 		{
 			await _manager.Update(id, request);
 			return Ok();

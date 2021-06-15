@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TimeSheets.Infrastructure.Extensions
 {
+	[ExcludeFromCodeCoverage]
 	public static class DateTimeExtensions
 	{
 		private static readonly DateTime Epoch =

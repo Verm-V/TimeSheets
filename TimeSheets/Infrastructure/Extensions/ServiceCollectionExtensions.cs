@@ -13,10 +13,15 @@ using TimeSheets.Domain.Interfaces;
 using TimeSheets.Models.Dto.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.ComponentModel;
+using FluentValidation;
+using TimeSheets.Models.Dto.Requests;
+using TimeSheets.Infrastructure.Validation;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheets.Infrastructure
 {
 	/// <summary>Расширения для коллекций сервисов</summary>
+	[ExcludeFromCodeCoverage]
 	internal static class ServiceCollectionExtensions
 	{
 		/// <summary>Конфигурация контекста базы данных</summary>
@@ -147,6 +152,11 @@ namespace TimeSheets.Infrastructure
 				{
 					options.TokenValidationParameters = jwtSettings.GetTokenValidationParameters();
 				});
+		}
+
+		public static void ConfigureValidtion(this IServiceCollection services)
+		{
+			services.AddTransient<IValidator<SheetCreateRequest>, SheetRequestValidator>();
 		}
 
 	}

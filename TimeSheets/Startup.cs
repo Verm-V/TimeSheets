@@ -1,12 +1,15 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics.CodeAnalysis;
 using TimeSheets.Infrastructure;
 
 namespace TimeSheets
 {
+	[ExcludeFromCodeCoverage]
 	public class Startup
 	{
 		public Startup(IConfiguration configuration)
@@ -33,6 +36,11 @@ namespace TimeSheets
 
 			// Аутентификация
 			services.ConfigureAuthentication(Configuration);
+
+			// Валидация
+			services.ConfigureValidtion();
+			services.AddControllers()
+				.AddFluentValidation();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
