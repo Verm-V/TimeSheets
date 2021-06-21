@@ -46,38 +46,22 @@ namespace TimeSheets.Infrastructure
 				{
 					Version = "v1",
 					Title = "API for Time Sheets service (short)",
-					Description = "Additional information",
-					//TermsOfService = new Uri("https://example.com/"),
-					Contact = new OpenApiContact
-					{
-						Name = "Vasiliy Mykitenko",
-						Email = string.Empty,
-						Url = new Uri("http://verm-v.ru"),
-					},
-					License = new OpenApiLicense
-					{
-						Name = "License - СС0",
-						Url = new Uri("https://creativecommons.org/choose/zero/"),
-					}
+					Description = "Для работы с API приложения необходимо авторизоваться.\n\n" +
+					"Доступные пользователи и их роли (пароль для всех: 1234):\n\n" +
+					" Creator - admin\n\n" +
+					" CodeMonkey - emploeye\n\n" +
+					" MoneyBag - client",
 				});
 				c.SwaggerDoc("v2", new OpenApiInfo
 				{
 					Version = "v2",
 					Title = "API for Time Sheets service (Full)",
-					Description = "Additional information",
-					//TermsOfService = new Uri("https://example.com/"),
-					Contact = new OpenApiContact
-					{
-						Name = "Vasiliy Mykitenko",
-						Email = string.Empty,
-						Url = new Uri("http://verm-v.ru"),
-					},
-					License = new OpenApiLicense
-					{
-						Name = "License - СС0",
-						Url = new Uri("https://creativecommons.org/choose/zero/"),
-					}
-				});
+					Description = "Для работы с API приложения необходимо авторизоваться.\n\n" +
+					"Доступные пользователи и их роли (пароль для всех: 1234):\n\n" +
+					" Creator - admin\n\n" +
+					" CodeMonkey - emploeye\n\n" +
+					" MoneyBag - client",
+				}); 
 				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 				{
 					In = ParameterLocation.Header,
