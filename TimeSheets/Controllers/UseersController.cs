@@ -35,6 +35,7 @@ namespace TimeSheets.Controllers
 
 		/// <summary>Получение информации о нескольких пользователях</summary>
 		/// <returns>Коллекция содержащая информацию о пользователях</returns>
+		[Authorize(Roles = "admin")]
 		[HttpGet]
 		public async Task<IActionResult> GetItems()
 		{
